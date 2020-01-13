@@ -5,15 +5,22 @@
 --%>
 
 
+<%@page import="java.util.List"%>
+<%@page import="GlobalSurveys.Entity.Encuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Panel Admin</title>
+
     </head>
     <body>
         <h1>Panel Admin</h1>
+        <fieldset>
+    <legend>Encuestas</legend>
+        
+        </fieldset>
         <button onclick="window.location.href = 'CrearEncuesta.jsp';">Crear nueva encuesta</button>
         <button onclick="window.location.href = 'Preguntas';">Listado de preguntas</button>
         <button onclick="window.location.href = 'Usuarios';">Usuarios</button>

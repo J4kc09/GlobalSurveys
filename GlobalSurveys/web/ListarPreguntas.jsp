@@ -10,6 +10,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Preguntas</title>
     <%
@@ -17,8 +18,9 @@
     %>
     </head>
     <body>
+        <div>
         <h1>Listado de preguntas</h1>
-        
+        <fieldset>
         <table>
             <%
                 for (Pregunta cliente: lista) {
@@ -33,8 +35,10 @@
                 }
             %>    
         </table>
+        </fieldset>
         <button onclick="window.location.href = 'CrearPregunta.jsp';">Añadir pregunta</button>
         <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
+        </div>
     </body>
 </html>
 

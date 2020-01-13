@@ -5,11 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.UsuarioFacade;
-import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,13 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sergio13v
+ * @author Articuno
  */
-@WebServlet(name = "ServletUsuarioCrear", urlPatterns = {"/ServletUsuarioCrear"})
-public class ServletUsuarioCrear extends HttpServlet {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
+@WebServlet(name = "ServletGuardar", urlPatterns = {"/ServletGuardar"})
+public class ServletGuardar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,27 +31,19 @@ public class ServletUsuarioCrear extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-         Usuario usuario = new Usuario(); 
-         
-         String str = request.getParameter("id");
-         usuario.setIdUsuario(new Long(str));
-         
-         str = request.getParameter("nombreUsuario");
-         usuario.setNomUsuario(str);
-         
-         str = request.getParameter("passwordUsuario");
-         usuario.setPasswd(str);
-         
-         String value = request.getParameter("adminUsuario");
-         boolean valueAdmin = Boolean.parseBoolean(value);
-         usuario.setAdmin(valueAdmin);
-         
-        this.usuarioFacade.create(usuario);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("ServletUsuariosListar");
-        rd.forward(request, response);
-        
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletGuardar</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ServletGuardar at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

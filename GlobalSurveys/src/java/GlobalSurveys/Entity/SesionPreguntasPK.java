@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author acarr
+ * @author sergio13v
  */
 @Embeddable
 public class SesionPreguntasPK implements Serializable {
@@ -77,7 +77,7 @@ public class SesionPreguntasPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.SesionPreguntasPK[ idSesion=" + idSesion + ", idPregunta=" + idPregunta + " ]";
+        return "GlobalSurveys.Entity.SesionPreguntasPK[ idSesion=" + idSesion + ", idPregunta=" + idPregunta + " ]";
     }
     
 }

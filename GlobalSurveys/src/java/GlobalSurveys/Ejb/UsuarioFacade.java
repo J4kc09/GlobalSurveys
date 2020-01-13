@@ -6,15 +6,13 @@
 package GlobalSurveys.Ejb;
 
 import GlobalSurveys.Entity.Usuario;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
- * @author acarr
+ * @author sergio13v
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> {
@@ -30,18 +28,5 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
     public UsuarioFacade() {
         super(Usuario.class);
     }
-
-    public Usuario buscarPorNombre(String nombre) {
-        Query q;
-        q = this.getEntityManager().createNamedQuery("Usuario.findByNomUsuario");
-        q.setParameter("nomUsuario", nombre);
-
-        List<Usuario> lista = q.getResultList();
-        if (lista == null || lista.isEmpty()) {
-            return null;
-        } else {
-            return lista.get(0);
-        }
-    }
-
+    
 }

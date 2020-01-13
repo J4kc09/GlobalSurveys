@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author acarr
+ * @author sergio13v
  */
 @Entity
 @Table(name = "ENCUESTA")
@@ -141,7 +141,7 @@ public class Encuesta implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Encuesta[ idEncuesta=" + idEncuesta + " ]";
+        return "GlobalSurveys.Entity.Encuesta[ idEncuesta=" + idEncuesta + " ]";
     }
     
 }

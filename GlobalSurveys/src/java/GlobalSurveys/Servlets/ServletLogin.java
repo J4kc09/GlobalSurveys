@@ -5,12 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.UsuarioFacade;
-import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,11 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Articuno
  */
-@WebServlet(name = "ServletLogin", urlPatterns = {"/Login"})
+@WebServlet(name = "ServletLogin", urlPatterns = {"/ServletLogin"})
 public class ServletLogin extends HttpServlet {
-
-    @EJB
-    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,48 +31,30 @@ public class ServletLogin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String nombre = request.getParameter("user");
-        String pass = request.getParameter("pass");
-
-        Usuario user = this.usuarioFacade.buscarPorNombre(nombre);
-
-        if (nombre == null && pass == null) {
-            RequestDispatcher rd2 = request.getRequestDispatcher("Login.jsp");
-            rd2.forward(request, response);
-
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletLogin</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ServletLogin at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        if (user == null) {
-            request.setAttribute("error", "Usuario o contraseña incorrecto. Inténtelo de nuevo.");
-            RequestDispatcher rd2 = request.getRequestDispatcher("Login.jsp");
-            rd2.forward(request, response);
-
-        } else {
-
-            if (user.getPasswd().equals(pass)) {
-
-                if (true == user.getAdmin()) {
-
-                    RequestDispatcher rd3 = request.getRequestDispatcher("PanelAdmin.jsp");
-                    rd3.forward(request, response);
-                } else {
-
-                    RequestDispatcher rd4 = request.getRequestDispatcher("PanelUsuario.jsp");
-                    rd4.forward(request, response);
-
-                }
-
-            } else {
-
-                request.setAttribute("error", "Usuario o contraseña incorrectos. Inténtelo de nuevo.");
-                RequestDispatcher rd5 = request.getRequestDispatcher("Login.jsp");
-                rd5.forward(request, response);
-
-            }
-        }
-
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -99,5 +74,15 @@ public class ServletLogin extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

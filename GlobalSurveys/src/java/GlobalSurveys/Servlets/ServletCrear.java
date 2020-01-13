@@ -5,8 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.UsuarioFacade;
-import GlobalSurveys.Entity.Usuario;
+import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Entity.Pregunta;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -18,13 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sergio13v
+ * @author Articuno
  */
-@WebServlet(name = "ServletUsuarioCrear", urlPatterns = {"/ServletUsuarioCrear"})
-public class ServletUsuarioCrear extends HttpServlet {
+@WebServlet(name = "ServletCrear", urlPatterns = {"/ServletCrear"})
+public class ServletCrear extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioFacade;
+    private PreguntaFacade preguntaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,26 +38,19 @@ public class ServletUsuarioCrear extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         Usuario usuario = new Usuario(); 
-         
+         Pregunta pregunta = new Pregunta(); 
          String str = request.getParameter("id");
-         usuario.setIdUsuario(new Long(str));
+         pregunta.setIdPregunta(new Long(str));
          
-         str = request.getParameter("nombreUsuario");
-         usuario.setNomUsuario(str);
+         str = request.getParameter("pregunta");
+         pregunta.setPregunta(str);
          
-         str = request.getParameter("passwordUsuario");
-         usuario.setPasswd(str);
          
-         String value = request.getParameter("adminUsuario");
-         boolean valueAdmin = Boolean.parseBoolean(value);
-         usuario.setAdmin(valueAdmin);
-         
-        this.usuarioFacade.create(usuario);
+
+        this.preguntaFacade.create(pregunta);
         
-        RequestDispatcher rd = request.getRequestDispatcher("ServletUsuariosListar");
+        RequestDispatcher rd = request.getRequestDispatcher("ServletLogin");
         rd.forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

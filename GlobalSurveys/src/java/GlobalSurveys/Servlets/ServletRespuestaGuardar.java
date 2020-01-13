@@ -59,7 +59,7 @@ public class ServletRespuestaGuardar extends HttpServlet {
          
           this.respuestaFacade.create(respuesta);
                  
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("PanelAdmin.jsp");
         rd.forward(request, response);
     }
 

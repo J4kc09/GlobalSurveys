@@ -18,5 +18,6 @@
         <button onclick="window.location.href = 'Preguntas';">Listado de preguntas</button>
         <button onclick="window.location.href = 'Usuarios';">Usuarios</button>
         <button onclick="window.location.href = 'Registros';">Registros</button>
+        <button onclick="window.location.href = 'ServletEncuestaListar';">Listar encuestas</button>
     </body>
 </html>

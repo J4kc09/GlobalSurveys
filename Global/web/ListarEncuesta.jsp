@@ -26,16 +26,32 @@
                 for (Encuesta encuesta: lista) {
             %>
             <tr>
-                <td>Nombre de la encuesta</td>
-                    
-                <td><%= encuesta.getNomEncuesta() %></td> 
+                <td>Nombre de la encuesta</td>   
+                <td>Descripcion de la encuesta</td>
+            <td><button onclick="window.location.href = 'ServletEncuestaEditar?id=<%= encuesta.getIdEncuesta()%>';">Editar</button>                               
+            <td><button onclick="window.location.href = 'ServletEncuestaBorrar?id=<%= encuesta.getIdEncuesta()%>';">Borrar</button>
                 
             </tr>
+            
+            <tr>
+                <td><%= encuesta.getNomEncuesta() %></td> 
+                <td><%= encuesta.getDescripcionEncuesta()%></td>
+                <td><button onclick="window.location.href = 'ServletEncuestaEditar?id=<%= encuesta.getIdEncuesta()%>';">Editar</button>                               
+                <td><button onclick="window.location.href = 'ServletEncuestaBorrar?id=<%= encuesta.getIdEncuesta()%>';">Borrar</button>
+                
+            </tr>
+                    
+              
                 
             <tr>
-                    <td>Descripcion de la encuesta</td>
+                
+            
+            
+            
+          
+                   
                     
-                    <td><%= encuesta.getDescripcionEncuesta()%></td>
+                    
                     
             </tr>
                 

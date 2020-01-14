@@ -9,7 +9,6 @@ import GlobalSurveys.Ejb.EncuestaFacade;
 import GlobalSurveys.Entity.Encuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,15 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author ilariadot
+ * @author damdm-2019
  */
-@WebServlet(name = "ServletEncuestaEditar", urlPatterns = {"/ServletEncuestaEditar"})
-public class ServletEncuestaEditar extends HttpServlet {
+@WebServlet(name = "ServletEncuestaGuardar", urlPatterns = {"/ServletEncuestaGuardar"})
+public class ServletEncuestaGuardar extends HttpServlet {
 
     @EJB
     private EncuestaFacade encuestaFacade;
-
     
+    
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,12 +42,19 @@ public class ServletEncuestaEditar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String str = request.getParameter("id");
-            Encuesta encuesta = this.encuestaFacade.find(new Long (str));
-            request.setAttribute("encuesta", encuesta);
-            
-            RequestDispatcher rd = request.getRequestDispatcher("EditarEncuesta.jsp");
-            rd.forward(request, response);            
-            
+        Encuesta encuesta = this.encuestaFacade.find(new Long(str));
+
+        
+        str = request.getParameter("nombre");
+        encuesta.setNomEncuesta(str);
+        
+        str = request.getParameter("descripcion");
+        encuesta.setDescripcionEncuesta(str);
+        
+        this.encuestaFacade.edit(encuesta);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("ServletEncuestaListar");
+        rd.forward(request, response);
         }
     
 

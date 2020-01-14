@@ -15,16 +15,19 @@
     </head>
     <%
         Encuesta encuesta = (Encuesta)request.getAttribute("encuesta");
-        List<Encuesta> listaPreguntas = (List) request.getAttribute("encuesta");
     %>    
     <body>
         <h1>Editor de encuestas:</h1>
-        <form action="ServletPreguntasGuardar">
+            <form action="ServletEncuestaGuardar">
             ID Encuesta: <%= encuesta.getIdEncuesta()%> <br>
             <input type="hidden" name="id" value="<%= encuesta.getIdEncuesta()%>" />
-            <input type="text" name="nombre" value="<%=encuesta.getNomEncuesta() %>" />
-            <input type="text" name="descripcion" value="<%=encuesta.getDescripcionEncuesta()%>" /><br/>           
-            <input type="submit" value="Enviar" />
+            Nombre:<input type="text" name="nombre" value="<%=encuesta.getNomEncuesta() %>" />
+            Descripción:<input type="text" name="descripcion" value="<%=encuesta.getDescripcionEncuesta()%>" /><br/>  
+            
+            
+            
+            
+           <input type="submit" value="Enviar" />
         </form>
     </body>
 </html>

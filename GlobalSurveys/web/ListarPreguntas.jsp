@@ -27,7 +27,7 @@
             %>
             <tr>
                 <td><%= cliente.getPregunta() %></td>
-                <td><button onclick="window.location.href = 'ServletRespuestas?id=<%= cliente.getIdPregunta()%>';">Definir respuestas</button>
+                <td><button onclick="window.location.href = 'Respuestas?id=<%=cliente.getIdPregunta()%>';">Definir respuestas</button>
                 <td><button onclick="window.location.href = 'ServletPreguntasEditar?id=<%= cliente.getIdPregunta()%>';">Editar</button>                               
                 <td><button onclick="window.location.href = 'ServletPreguntasBorrar?id=<%= cliente.getIdPregunta()%>';">Borrar</button>                                    
             </tr>
@@ -37,7 +37,7 @@
         </table>
         </fieldset>
         <button onclick="window.location.href = 'CrearPregunta.jsp';">Añadir pregunta</button>
-        <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
+        <button onclick="window.location.href = 'EncuestasAdmin';">Volver</button>
         </div>
     </body>
 </html>

@@ -20,16 +20,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author damdm-2019
+ * @author ilariadot
  */
-@WebServlet(name = "ServletEncuestaCrear", urlPatterns = {"/ServletEncuestaCrear"})
-public class ServletEncuestaCrear extends HttpServlet {
+@WebServlet(name = "ServletEncuestaBorrar", urlPatterns = {"/ServletEncuestaBorrar"})
+public class ServletEncuestaBorrar extends HttpServlet {
 
     @EJB
     private EncuestaFacade encuestaFacade;
-    private String descripcion;
-   
-    
+
+  
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,30 +42,18 @@ public class ServletEncuestaCrear extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        Encuesta encuesta = new Encuesta(); 
-        encuesta.setIdEncuesta(new Long(0));
-         
-         String str = request.getParameter("descripcion");
-         encuesta.setDescripcionEncuesta(str);
-         str = request.getParameter("encuesta");
-         encuesta.setNomEncuesta(str);
-         
-          this.encuestaFacade.create(encuesta);
-         
-         List<Encuesta> listaencuesta = this.encuestaFacade.findAll();
-            request.setAttribute("encuesta", listaencuesta);            
-         
-         
-
        
-        
+         
+        String str = request.getParameter("id");
+        Encuesta encuesta = this.encuestaFacade.find(new Long(str));
+
+        this.encuestaFacade.remove(encuesta);
+
         RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
         rd.forward(request, response);
-        
-        
-        
-        
+
+      
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

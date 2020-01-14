@@ -1,12 +1,12 @@
+package GlobalSurveys.Servlets;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GlobalSurveys.Servlets;
-
-import GlobalSurveys.Ejb.EncuestaFacade;
-import GlobalSurveys.Entity.Encuesta;
+import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Entity.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -20,16 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author damdm-2019
+ * @author acarr
  */
-@WebServlet(name = "ServletEncuestaCrear", urlPatterns = {"/ServletEncuestaCrear"})
-public class ServletEncuestaCrear extends HttpServlet {
+@WebServlet(urlPatterns = {"/Respuestas"})
+public class ServletRespuestasListar extends HttpServlet {
 
     @EJB
-    private EncuestaFacade encuestaFacade;
-    private String descripcion;
-   
-    
+    private RespuestaFacade respuestaFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,31 +39,23 @@ public class ServletEncuestaCrear extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
-        Encuesta encuesta = new Encuesta(); 
-        encuesta.setIdEncuesta(new Long(0));
-         
-         String str = request.getParameter("descripcion");
-         encuesta.setDescripcionEncuesta(str);
-         str = request.getParameter("encuesta");
-         encuesta.setNomEncuesta(str);
-         
-          this.encuestaFacade.create(encuesta);
-         
-         List<Encuesta> listaencuesta = this.encuestaFacade.findAll();
-            request.setAttribute("encuesta", listaencuesta);            
-         
-         
+        String str = request.getParameter("id");
+        Respuesta cliente = this.respuestaFacade.find(new Long(str));
+        request.setAttribute("cliente", cliente);
 
-       
-        
-        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
-        rd.forward(request, response);
-        
-        
-        
-        
+        List<Respuesta> lista = this.respuestaFacade.findAll();
+        request.setAttribute("listado", lista);
+
+        if (lista == null) {
+            RequestDispatcher rd2 = request.getRequestDispatcher("ListarRespuestas.jsp");
+            rd2.forward(request, response);
+        } else {
+            request.setAttribute("error", "No hay respuestas asociadas a esta pregunta.");
+            RequestDispatcher rd = request.getRequestDispatcher("ListarRespuestas.jsp");
+            rd.forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

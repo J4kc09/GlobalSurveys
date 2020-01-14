@@ -29,6 +29,8 @@ public class ServletPreguntasListar extends HttpServlet {
     @EJB
     private PreguntaFacade preguntaFacade;
 
+
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.

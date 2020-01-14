@@ -60,7 +60,7 @@ public class ServletLogin extends HttpServlet {
 
                 if (true == user.getAdmin()) {
 
-                    RequestDispatcher rd3 = request.getRequestDispatcher("PanelAdmin.jsp");
+                    RequestDispatcher rd3 = request.getRequestDispatcher("EncuestasAdmin");
                     rd3.forward(request, response);
                 } else {
 

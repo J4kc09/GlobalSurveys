@@ -5,8 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.EncuestaFacade;
-import GlobalSurveys.Entity.Encuesta;
+import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Entity.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -20,16 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author damdm-2019
+ * @author acarr
  */
-@WebServlet(name = "ServletEncuestaCrear", urlPatterns = {"/ServletEncuestaCrear"})
-public class ServletEncuestaCrear extends HttpServlet {
+@WebServlet(name = "ServletRespuestasEditar", urlPatterns = {"/ServletRespuestasEditar"})
+public class ServletRespuestasEditar extends HttpServlet {
 
     @EJB
-    private EncuestaFacade encuestaFacade;
-    private String descripcion;
-   
-    
+    private RespuestaFacade respuestaFacade;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,30 +40,17 @@ public class ServletEncuestaCrear extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        Encuesta encuesta = new Encuesta(); 
-        encuesta.setIdEncuesta(new Long(0));
-         
-         String str = request.getParameter("descripcion");
-         encuesta.setDescripcionEncuesta(str);
-         str = request.getParameter("encuesta");
-         encuesta.setNomEncuesta(str);
-         
-          this.encuestaFacade.create(encuesta);
-         
-         List<Encuesta> listaencuesta = this.encuestaFacade.findAll();
-            request.setAttribute("encuesta", listaencuesta);            
-         
-         
-
-       
         
-        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
-        rd.forward(request, response);
-        
-        
-        
-        
+            String str = request.getParameter("id");
+            Respuesta cliente = this.respuestaFacade.find(new Long (str));
+            request.setAttribute("cliente", cliente);
+            
+            List<Respuesta> listaRespuestas = this.respuestaFacade.findAll();
+            request.setAttribute("respuesta", listaRespuestas);   
+            
+            RequestDispatcher rd = request.getRequestDispatcher("EditarRespuesta.jsp");
+            rd.forward(request, response);
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

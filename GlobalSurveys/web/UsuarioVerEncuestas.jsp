@@ -17,7 +17,8 @@
         List<Encuesta> lista = (List)request.getAttribute("listado");
     %>
     <body>
-        <h1>Listado de clientes</h1>
+        <h1>Listado de Encuestas</h1>
+        <form action="ServletEncuestaHacer">
         <table>
             <%
                 for (Encuesta cliente: lista) {
@@ -25,11 +26,13 @@
             <tr>
                 <td><%= cliente.getNomEncuesta()%></td>
                 <td><%= cliente.getDescripcionEncuesta() %></td>
-                <td><button onclick="window.location.href = 'ServletEncuestasHacer?id=<%= cliente.getIdEncuesta()%>';">Hacer Encuesta</button>                                          
+                <td><a href='ServletEncuestaHacer?id=<%= cliente.getIdEncuesta()%>'>Hacer Encuesta</a>
+                    
             </tr>
             <%
                 }
             %>    
         </table>
+        </form>
     </body>
 </html>

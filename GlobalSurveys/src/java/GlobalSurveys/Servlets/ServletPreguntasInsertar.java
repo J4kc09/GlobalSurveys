@@ -5,10 +5,14 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Entity.Encuesta;
+import GlobalSurveys.Entity.Pregunta;
 import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,15 +21,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
+/*
  * @author sergio13v
  */
-@WebServlet(name = "ServletUsuariosGuardar", urlPatterns = {"/ServletUsuariosGuardar"})
-public class ServletUsuariosGuardar extends HttpServlet {
+
+@WebServlet(name = "ServletPreguntasInsertar", urlPatterns = {"/ServletPreguntasInsertar"})
+public class ServletPreguntasInsertar extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioFacade;
+    private EncuestaFacade encuestaFacade;
+    
+    @EJB
+    private PreguntaFacade preguntaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,32 +45,25 @@ public class ServletUsuariosGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        response.setContentType("text/html;charset=UTF-8");
-        
+
         String str = request.getParameter("id");
-        Usuario cliente = this.usuarioFacade.find(new Long(str));
         
-        str = request.getParameter("nombre");
-        cliente.setNomUsuario(str);
+        Encuesta cliente = this.encuestaFacade.find(new Long (str));
+        request.setAttribute("cliente", cliente);
         
-        str = request.getParameter("password");
-        cliente.setPasswd(str);
-         
-         String value = request.getParameter("admin");
-         if (value.equals("Si")) {
-            boolean equals = value.equals("true");
-        }
-         else {
-             boolean equals = value.equals("false");
-         }
-         boolean valueAdmin = Boolean.parseBoolean(value);
-         cliente.setAdmin(valueAdmin);
+        List<Pregunta> lista = this.preguntaFacade.findAll();
+        request.setAttribute("listado", lista);
         
-        this.usuarioFacade.edit(cliente);
+        /*String str = request.getParameter("id");
         
-        RequestDispatcher rd = request.getRequestDispatcher("Usuarios");
-        rd.forward(request, response);        
+        Pregunta cliente = this.preguntaFacade.find(new Long (str));
+        request.setAttribute("cliente", cliente);
+        
+        List<Pregunta> lista = this.preguntaFacade.findAll();
+        request.setAttribute("listado", lista);*/
+        
+        RequestDispatcher rd = request.getRequestDispatcher("InsertarPregunta.jsp");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

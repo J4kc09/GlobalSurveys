@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="GlobalSurveys.Entity.Pregunta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,13 +14,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Creador de Preguntas</title>
     </head>
+     <%
+        Pregunta pregunta = (Pregunta)request.getAttribute("pregunta");
+     %>  
     <body>
-        <form action="ServletPreguntasCrear">
-             <input type="hidden" name="id" value="0" />
-            CREADOR DE PREGUNTAS <br/> 
-            Enunciado de la pregunta:<input type="text" name="pregunta" value="" /> <br/>
+        <form action="ServletRespuestaCrear2">
+             <input type="hidden" name="pregunta" value="<%= request.getParameter("id")%>">
+             <input type="hidden" name="idrespuesta" value="0" />
+            CREADOR DE RESPUESTAS <br/> Enunciado de la respuesta:<input type="text" name="respuesta" value="" /> <br/>
+             
            <input type="submit" value="Crear" />
-           <button onclick="window.location.href = 'Preguntas';">Volver</button>
         </form>
     </body>
 </html>

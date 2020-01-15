@@ -5,27 +5,27 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.UsuarioFacade;
-import GlobalSurveys.Entity.Usuario;
+import GlobalSurveys.Ejb.PreguntaFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import GlobalSurveys.Entity.Pregunta;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 
 /**
  *
- * @author sergio13v
+ * @author acarr
  */
-@WebServlet(name = "ServletUsuariosGuardar", urlPatterns = {"/ServletUsuariosGuardar"})
-public class ServletUsuariosGuardar extends HttpServlet {
+@WebServlet(name = "ServletPreguntasGuardar", urlPatterns = {"/ServletPreguntasGuardar"})
+public class ServletPreguntasGuardar extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioFacade;
+    private PreguntaFacade preguntaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,31 +38,16 @@ public class ServletUsuariosGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        
         String str = request.getParameter("id");
-        Usuario cliente = this.usuarioFacade.find(new Long(str));
+        Pregunta cliente = this.preguntaFacade.find(new Long(str));
         
         str = request.getParameter("nombre");
-        cliente.setNomUsuario(str);
+        cliente.setPregunta(str);
         
-        str = request.getParameter("password");
-        cliente.setPasswd(str);
-         
-         String value = request.getParameter("admin");
-         if (value.equals("Si")) {
-            boolean equals = value.equals("true");
-        }
-         else {
-             boolean equals = value.equals("false");
-         }
-         boolean valueAdmin = Boolean.parseBoolean(value);
-         cliente.setAdmin(valueAdmin);
+        this.preguntaFacade.edit(cliente);
         
-        this.usuarioFacade.edit(cliente);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("Usuarios");
+        RequestDispatcher rd = request.getRequestDispatcher("Preguntas");
         rd.forward(request, response);        
     }
 

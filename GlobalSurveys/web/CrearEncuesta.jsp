@@ -9,9 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Crear encuesta</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+         <form action="ServletEncuestaCrear">
+             
+             <input type="hidden" name="id" value="0" />
+            CREADOR DE ENCUESTAS <br/> 
+            Titulo:<input type="text" name="encuesta" value="" /> <br/>
+            Descripción:<input type="text" name="descripcion" value=""/> <br/>
+             <input type="submit" value="Crear" />
+        </form>
+        <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
+        
+        
     </body>
 </html>

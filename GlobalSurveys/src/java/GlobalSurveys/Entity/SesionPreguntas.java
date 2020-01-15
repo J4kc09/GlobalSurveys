@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author sergio13v
+ * @author acarr
  */
 @Entity
 @Table(name = "SESION_PREGUNTAS")
@@ -106,7 +106,7 @@ public class SesionPreguntas implements Serializable {
 
     @Override
     public String toString() {
-        return "GlobalSurveys.Entity.SesionPreguntas[ sesionPreguntasPK=" + sesionPreguntasPK + " ]";
+        return "Entity.SesionPreguntas[ sesionPreguntasPK=" + sesionPreguntasPK + " ]";
     }
     
 }

@@ -55,7 +55,7 @@ public class ServletUsuarioCrear extends HttpServlet {
          
         this.usuarioFacade.create(usuario);
         
-        RequestDispatcher rd = request.getRequestDispatcher("ServletUsuariosListar");
+        RequestDispatcher rd = request.getRequestDispatcher("Usuarios");
         rd.forward(request, response);
         
     }

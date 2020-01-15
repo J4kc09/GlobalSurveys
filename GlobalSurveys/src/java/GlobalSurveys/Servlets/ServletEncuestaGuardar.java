@@ -5,8 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.UsuarioFacade;
-import GlobalSurveys.Entity.Usuario;
+import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Entity.Encuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -19,13 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sergio13v
+ * @author damdm-2019
  */
-@WebServlet(name = "ServletUsuariosGuardar", urlPatterns = {"/ServletUsuariosGuardar"})
-public class ServletUsuariosGuardar extends HttpServlet {
+@WebServlet(name = "ServletEncuestaGuardar", urlPatterns = {"/ServletEncuestaGuardar"})
+public class ServletEncuestaGuardar extends HttpServlet {
 
     @EJB
-    private UsuarioFacade usuarioFacade;
+    private EncuestaFacade encuestaFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,33 +40,23 @@ public class ServletUsuariosGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         response.setContentType("text/html;charset=UTF-8");
-        
         String str = request.getParameter("id");
-        Usuario cliente = this.usuarioFacade.find(new Long(str));
+        Encuesta encuesta = this.encuestaFacade.find(new Long(str));
+
         
         str = request.getParameter("nombre");
-        cliente.setNomUsuario(str);
+        encuesta.setNomEncuesta(str);
         
-        str = request.getParameter("password");
-        cliente.setPasswd(str);
-         
-         String value = request.getParameter("admin");
-         if (value.equals("Si")) {
-            boolean equals = value.equals("true");
+        str = request.getParameter("descripcion");
+        encuesta.setDescripcionEncuesta(str);
+        
+        this.encuestaFacade.edit(encuesta);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("ServletEncuestaListar");
+        rd.forward(request, response);
         }
-         else {
-             boolean equals = value.equals("false");
-         }
-         boolean valueAdmin = Boolean.parseBoolean(value);
-         cliente.setAdmin(valueAdmin);
-        
-        this.usuarioFacade.edit(cliente);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("Usuarios");
-        rd.forward(request, response);        
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

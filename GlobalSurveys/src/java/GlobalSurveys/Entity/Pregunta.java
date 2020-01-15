@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author sergio13v
+ * @author acarr
  */
 @Entity
 @Table(name = "PREGUNTA")
@@ -132,7 +132,11 @@ public class Pregunta implements Serializable {
 
     @Override
     public String toString() {
-        return "GlobalSurveys.Entity.Pregunta[ idPregunta=" + idPregunta + " ]";
+        return "Entity.Pregunta[ idPregunta=" + idPregunta + " ]";
+    }
+
+    public void setPregunta(List<Pregunta> listaPreguntas) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

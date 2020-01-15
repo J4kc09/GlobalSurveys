@@ -44,7 +44,7 @@ public class ServletUsuariosBorrar extends HttpServlet {
 
         this.usuarioFacade.remove(cliente);
 
-        RequestDispatcher rd = request.getRequestDispatcher("ServletUsuariosListar");
+        RequestDispatcher rd = request.getRequestDispatcher("Usuarios");
         rd.forward(request, response);
 
     }

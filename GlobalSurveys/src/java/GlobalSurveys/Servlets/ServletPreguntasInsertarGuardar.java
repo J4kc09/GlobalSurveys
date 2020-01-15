@@ -5,9 +5,15 @@
  */
 package GlobalSurveys.Servlets;
 
+import GlobalSurveys.Ejb.EncuestaFacade;
 import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Entity.Encuesta;
 import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,15 +22,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Articuno
+/*
+ * @author sergio13v
  */
-@WebServlet(name = "ServletCrear", urlPatterns = {"/ServletCrear"})
-public class ServletCrear extends HttpServlet {
+
+@WebServlet(name = "ServletPreguntasInsertarGuardar", urlPatterns = {"/ServletPreguntasInsertarGuardar"})
+public class ServletPreguntasInsertarGuardar extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
+    private EncuestaFacade encuestaFacade;
+        
+    @EJB
+    private PreguntaFacade preguntaFacade;    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,18 +47,33 @@ public class ServletCrear extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-         Pregunta pregunta = new Pregunta(); 
-         String str = request.getParameter("id");
-         pregunta.setIdPregunta(new Long(str));
-         
-         str = request.getParameter("pregunta");
-         pregunta.setPregunta(str);
-         
-         
-
-        this.preguntaFacade.create(pregunta);
+        response.setContentType("text/html;charset=UTF-8");
+ 
+        String[] str1 = request.getParameterValues("id");
         
-        RequestDispatcher rd = request.getRequestDispatcher("ServletLogin");
+        String str = request.getParameter("encuesta");
+        /*for (int i = 0; i < str.length; i++) {
+            Pregunta cliente.setPregunta(str[i]);
+        }*/
+        
+        /*Pregunta cliente = this.preguntaFacade.find(new Long(str));*/
+        
+        /*str = request.getParameter("nombre");
+        cliente.setPregunta(str);*/
+         
+         /*String value = request.getParameter("admin");
+         if (value.equals("Si")) {
+            boolean equals = value.equals("true");
+        }
+         else {
+             boolean equals = value.equals("false");
+         }
+         boolean valueAdmin = Boolean.parseBoolean(value);
+         cliente.setAdmin(valueAdmin);*/
+        
+        /*this.preguntaFacade.edit(cliente);*/
+        
+        RequestDispatcher rd = request.getRequestDispatcher("ServletPreguntasInsertar");
         rd.forward(request, response);
     }
 

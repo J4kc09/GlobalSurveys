@@ -9,9 +9,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>GlobalSurveys - Login</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+   <body>        
+    <div align="center">
+    <img src="https://karrasko.ddns.net/assets/globalsurveys.png" alt="GlobalSurveys logo" height="200">
+    <% 
+    String error = (String)request.getAttribute("error");
+    if (error == null) error = "";
+    %>  
+            <form action ="Login">
+
+                <input type ="text" name="user" placeholder="Nombre de usuario"/><br>
+                <input type="password" name="pass" placeholder="Contraseña"/><br>
+                <input type="submit" value="Iniciar sesión">
+                   
+            </form>
+            <p style="color: red"><%=error%></p>
+       </div> 
+       <footer class="footer">Copyright © 2020 GlobalSurveys</footer>
+   </body>
 </html>

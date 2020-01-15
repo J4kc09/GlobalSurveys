@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 /*
  * @author sergio13v
  */
-@WebServlet(name = "ServletUsuariosListar", urlPatterns = {"/ServletUsuariosListar"})
+@WebServlet(name = "ServletUsuariosListar", urlPatterns = {"/Usuarios"})
 public class ServletUsuariosListar extends HttpServlet {
 
     @EJB

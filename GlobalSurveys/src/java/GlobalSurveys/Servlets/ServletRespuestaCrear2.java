@@ -5,8 +5,14 @@
  */
 package GlobalSurveys.Servlets;
 
+import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Entity.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Articuno
+ * @author acarr
  */
-@WebServlet(name = "ServletGuardar", urlPatterns = {"/ServletGuardar"})
-public class ServletGuardar extends HttpServlet {
+@WebServlet(name = "ServletRespuestaCrear2", urlPatterns = {"/ServletRespuestaCrear2"})
+public class ServletRespuestaCrear2 extends HttpServlet {
+
+    @EJB
+    private RespuestaFacade respuestaFacade;
+
+    @EJB
+    private PreguntaFacade preguntaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +43,24 @@ public class ServletGuardar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletGuardar</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletGuardar at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
+        
+         Respuesta respuesta = new Respuesta(); 
+         String str = request.getParameter("idrespuesta");
+         respuesta.setIdRespuesta(new Long(str));
+         
+         str = request.getParameter("respuesta");
+         respuesta.setRespuesta(str);
+         
+         
+         str = request.getParameter("pregunta");
+         Pregunta pregunta = preguntaFacade.find(new Long(str));
+         respuesta.setIdPregunta(pregunta);
+         
+          this.respuestaFacade.create(respuesta);
+                 
+        RequestDispatcher rd = request.getRequestDispatcher("Preguntas");
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

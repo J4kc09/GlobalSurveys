@@ -15,8 +15,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Respuestas</title>
     <%
-        String id2 = request.getParameter("id");
-        List<Respuesta> lista = (List)request.getAttribute("listado");
+        Respuesta cliente = (Respuesta)request.getAttribute("cliente");
+        List<Respuesta> listaRespuestas = (List) request.getAttribute("respuesta");
         String error = (String)request.getAttribute("error");
         if (error == null) error = "";
     %>
@@ -28,7 +28,8 @@
         <table>
             <p style="color: red"><%=error%></p>
             <%
-                for (Respuesta id:lista) {
+                
+                for (Pregunta id : lista) {
             %>
             <tr>
                 <td><%= id.getIdRespuesta()%></td>

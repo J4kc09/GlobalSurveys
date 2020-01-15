@@ -6,9 +6,11 @@
 package GlobalSurveys.Ejb;
 
 import GlobalSurveys.Entity.Respuesta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -28,5 +30,18 @@ public class RespuestaFacade extends AbstractFacade<Respuesta> {
     public RespuestaFacade() {
         super(Respuesta.class);
     }
-    
+
+    public Respuesta buscarPorIdPregunta(String id) {
+        Query q;
+        q = this.getEntityManager().createNamedQuery("Respuesta.findByIdPregunta");
+        q.setParameter("idPregunta", id);
+
+        List<Respuesta> lista = q.getResultList();
+        if (lista == null || lista.isEmpty()) {
+            return null;
+        } else {
+            return lista.get(0);
+        }
+    }
+
 }

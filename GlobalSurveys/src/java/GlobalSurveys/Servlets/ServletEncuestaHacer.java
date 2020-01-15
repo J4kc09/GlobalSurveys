@@ -1,11 +1,14 @@
-package GlobalSurveys.Servlets;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package GlobalSurveys.Servlets;
+
+import GlobalSurveys.Ejb.EncuestaFacade;
 import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Entity.Encuesta;
+import GlobalSurveys.Entity.Pregunta;
 import GlobalSurveys.Entity.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,16 +20,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author acarr
+ * @author Articuno
  */
-@WebServlet(urlPatterns = {"/Respuestas"})
-public class ServletRespuestasListar extends HttpServlet {
+@WebServlet(name = "ServletEncuestaHacer", urlPatterns = {"/ServletEncuestaHacer"})
+public class ServletEncuestaHacer extends HttpServlet {
 
     @EJB
     private RespuestaFacade respuestaFacade;
+
+    @EJB
+    private EncuestaFacade encuestaFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,21 +47,31 @@ public class ServletRespuestasListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String id = request.getParameter("id");
-
-        List<Respuesta> lista = (List<Respuesta>) this.respuestaFacade.buscarPorIdPregunta(id);
-        request.setAttribute("listado", lista);
-
-        if (lista == null) {
-            RequestDispatcher rd2 = request.getRequestDispatcher("ListarRespuestas.jsp");
-            rd2.forward(request, response);
-        } else {
-            request.setAttribute("error", "No hay respuestas asociadas a esta pregunta.");
-            RequestDispatcher rd = request.getRequestDispatcher("ListarRespuestas.jsp");
-            rd.forward(request, response);
-        }
-
+        
+        
+        
+         String str = request.getParameter("id");
+         Encuesta encuesta = this.encuestaFacade.find(new Long(str));
+         
+         List<Respuesta> listarespuestas = this.respuestaFacade.findAll();
+         request.setAttribute("listarespuestas", listarespuestas);
+         
+            List<Pregunta> listapreguntas = encuesta.getPreguntaList();
+            request.setAttribute("listapreguntas", listapreguntas);
+            
+            request.setAttribute("idencuesta", encuesta);
+         
+      
+         
+          HttpSession sesion = request.getSession();
+          sesion.setAttribute("idncuesta", encuesta.getIdEncuesta());
+                    
+                    
+         RequestDispatcher rd = request.getRequestDispatcher("HacerEncuesta.jsp");
+        rd.forward(request, response); 
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

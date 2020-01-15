@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -59,11 +60,18 @@ public class ServletLogin extends HttpServlet {
             if (user.getPasswd().equals(pass)) {
 
                 if (true == user.getAdmin()) {
+                    
+               
+                            
+                    
 
                     RequestDispatcher rd3 = request.getRequestDispatcher("PanelAdmin.jsp");
                     rd3.forward(request, response);
                 } else {
-
+                    
+                    HttpSession sesion = request.getSession();
+                    sesion.setAttribute("usuario", user.getIdUsuario());
+                    
                     RequestDispatcher rd4 = request.getRequestDispatcher("PanelUsuario.jsp");
                     rd4.forward(request, response);
 

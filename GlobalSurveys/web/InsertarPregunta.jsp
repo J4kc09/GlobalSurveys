@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Insertar preguntas</title>
         <%
-        Encuesta encuesta = (Encuesta)request.getAttribute("encuesta");
+        Encuesta enc = (Encuesta)request.getAttribute("encuesta");
         List<Pregunta> lista = (List)request.getAttribute("listado");
         %>
     </head>
@@ -30,7 +30,17 @@
                 for (Pregunta cliente: lista) {
             %>
             <tr>
-                <td><input type="checkbox" name="id" value="<%= cliente.getIdPregunta() %>"><%= cliente.getPregunta() %></td>
+                
+                <%/*
+                        String str = "";                     
+                        if (enc.getPreguntaList(listaPreg==)) {
+                            str = "checked";
+                        } else {
+                            str = "checked";                            
+                        }*/
+                %>              
+                
+                <td><input type="checkbox" name="idpreguntas" value="<%= cliente.getIdPregunta() %>"><%= cliente.getPregunta() %></td>
             </tr>
             <%
                 }

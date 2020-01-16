@@ -13,6 +13,8 @@ import GlobalSurveys.Entity.Pregunta;
 import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -48,30 +50,28 @@ public class ServletPreguntasInsertarGuardar extends HttpServlet {
             throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
- 
-        String[] str1 = request.getParameterValues("id");
         
+        //Cogemos el ID de la encuesta
         String str = request.getParameter("encuesta");
-        /*for (int i = 0; i < str.length; i++) {
-            Pregunta cliente.setPregunta(str[i]);
-        }*/
+        Encuesta enc = this.encuestaFacade.find(new Long(str));
         
-        /*Pregunta cliente = this.preguntaFacade.find(new Long(str));*/
+        //Creamos una lista de preguntas
+        List<Pregunta> listaPreg = new ArrayList();
         
-        /*str = request.getParameter("nombre");
-        cliente.setPregunta(str);*/
-         
-         /*String value = request.getParameter("admin");
-         if (value.equals("Si")) {
-            boolean equals = value.equals("true");
+        //Cogemos los IDs de las preguntas
+        String[] str1 = request.getParameterValues("idpreguntas");
+        
+        //Metemos cada pregunta en la lista
+        for (int i = 0; i < str1.length; i++) {
+            Pregunta preg = this.preguntaFacade.find(new Long(str1[i]));
+            listaPreg.add(preg);
         }
-         else {
-             boolean equals = value.equals("false");
-         }
-         boolean valueAdmin = Boolean.parseBoolean(value);
-         cliente.setAdmin(valueAdmin);*/
         
-        /*this.preguntaFacade.edit(cliente);*/
+        enc.setPreguntaList(listaPreg);
+
+        /*System.out.println(listaPreg);*/
+        
+        this.encuestaFacade.edit(enc);
         
         RequestDispatcher rd = request.getRequestDispatcher("ServletPreguntasInsertar");
         rd.forward(request, response);

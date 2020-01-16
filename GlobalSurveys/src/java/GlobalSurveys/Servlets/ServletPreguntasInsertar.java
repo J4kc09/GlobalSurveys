@@ -27,9 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletPreguntasInsertar", urlPatterns = {"/ServletPreguntasInsertar"})
 public class ServletPreguntasInsertar extends HttpServlet {
-
-    @EJB
-    private EncuestaFacade encuestaFacade;
     
     @EJB
     private PreguntaFacade preguntaFacade;
@@ -46,21 +43,13 @@ public class ServletPreguntasInsertar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String str = request.getParameter("id");
+        /*String str = request.getParameter("id");
         
         Encuesta cliente = this.encuestaFacade.find(new Long (str));
-        request.setAttribute("cliente", cliente);
+        request.setAttribute("cliente", cliente);*/
         
         List<Pregunta> lista = this.preguntaFacade.findAll();
         request.setAttribute("listado", lista);
-        
-        /*String str = request.getParameter("id");
-        
-        Pregunta cliente = this.preguntaFacade.find(new Long (str));
-        request.setAttribute("cliente", cliente);
-        
-        List<Pregunta> lista = this.preguntaFacade.findAll();
-        request.setAttribute("listado", lista);*/
         
         RequestDispatcher rd = request.getRequestDispatcher("InsertarPregunta.jsp");
         rd.forward(request, response);

@@ -16,6 +16,7 @@
         <%
         Encuesta enc = (Encuesta)request.getAttribute("encuesta");
         List<Pregunta> lista = (List)request.getAttribute("listado");
+        
         %>
     </head>
     <body>
@@ -27,20 +28,16 @@
         <table>
 
             <%
-                for (Pregunta cliente: lista) {
+                for (Pregunta preg: lista) {
+                    String checked = "";
+                    if (enc.getPreguntaList().contains(preg)) {
+                        checked = "checked";
+                    }
             %>
             <tr>
+           
                 
-                <%/*
-                        String str = "";                     
-                        if (enc.getPreguntaList(listaPreg==)) {
-                            str = "checked";
-                        } else {
-                            str = "checked";                            
-                        }*/
-                %>              
-                
-                <td><input type="checkbox" name="idpreguntas" value="<%= cliente.getIdPregunta() %>"><%= cliente.getPregunta() %></td>
+                <td><input type="checkbox" <%= checked %> name="idpreguntas" value="<%= preg.getIdPregunta() %>"><%= preg.getPregunta() %></td>
             </tr>
             <%
                 }

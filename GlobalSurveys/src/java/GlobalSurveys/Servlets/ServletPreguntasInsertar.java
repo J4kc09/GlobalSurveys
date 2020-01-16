@@ -27,9 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletPreguntasInsertar", urlPatterns = {"/ServletPreguntasInsertar"})
 public class ServletPreguntasInsertar extends HttpServlet {
+
+    @EJB
+    private EncuestaFacade encuestaFacade;
     
     @EJB
     private PreguntaFacade preguntaFacade;
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +48,10 @@ public class ServletPreguntasInsertar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        /*String str = request.getParameter("id");
+        String str = request.getParameter("id");
         
-        Encuesta cliente = this.encuestaFacade.find(new Long (str));
-        request.setAttribute("cliente", cliente);*/
+        Encuesta encuesta = this.encuestaFacade.find(new Long (str));
+        request.setAttribute("encuesta", encuesta);
         
         List<Pregunta> lista = this.preguntaFacade.findAll();
         request.setAttribute("listado", lista);

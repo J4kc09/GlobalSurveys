@@ -7,12 +7,21 @@ package GlobalSurveys.Servlets;
 
 import GlobalSurveys.Ejb.EncuestaFacade;
 import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Ejb.SesionFacade;
+import GlobalSurveys.Ejb.UsuarioFacade;
 import GlobalSurveys.Entity.Encuesta;
 import GlobalSurveys.Entity.Pregunta;
 import GlobalSurveys.Entity.Respuesta;
+import GlobalSurveys.Entity.Sesion;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,6 +37,12 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "ServletEncuestaHacer", urlPatterns = {"/ServletEncuestaHacer"})
 public class ServletEncuestaHacer extends HttpServlet {
+
+    @EJB
+    private SesionFacade sesionFacade;
+
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     @EJB
     private RespuestaFacade respuestaFacade;
@@ -47,24 +62,27 @@ public class ServletEncuestaHacer extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+          
+         HttpSession sesion = request.getSession();
          String str = request.getParameter("id");
-         Encuesta encuesta = this.encuestaFacade.find(new Long(str));
-         
-         List<Respuesta> listarespuestas = this.respuestaFacade.findAll();
-         request.setAttribute("listarespuestas", listarespuestas);
-         
-            List<Pregunta> listapreguntas = encuesta.getPreguntaList();
-            request.setAttribute("listapreguntas", listapreguntas);
-            
-            request.setAttribute("idencuesta", encuesta);
+         Encuesta encuesta = this.encuestaFacade.find(new Long(str)); 
+         request.setAttribute("idencuesta", encuesta);
+         Long idusuario =(Long) sesion.getAttribute("usuario");
+         Usuario usuario = usuarioFacade.find(idusuario);
          
       
-         
-          HttpSession sesion = request.getSession();
+
+          Sesion sesionuser = new Sesion();
+          sesionuser.setIdEncuesta(encuesta);
+          sesionuser.setIdUsuario(usuario);
+          
+ 
+          sesionuser.setFecha(new Date());
+
+          sesionFacade.create(sesionuser);
+          sesion.setAttribute("sesion", sesionuser);
           sesion.setAttribute("idencuesta", encuesta.getIdEncuesta());
+
                     
                     
          RequestDispatcher rd = request.getRequestDispatcher("HacerEncuesta.jsp");

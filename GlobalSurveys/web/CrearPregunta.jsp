@@ -20,6 +20,6 @@
             Enunciado de la pregunta:<input type="text" name="pregunta" value="" /> <br/>
            <input type="submit" value="Crear" />
         </form>
-        <button onclick="window.location.href = 'Preguntas';">Volver</button>
+        <button onclick="history.back()">Volver</button>
     </body>
 </html>

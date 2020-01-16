@@ -32,7 +32,7 @@
         %>
         <tr>     
             <td><%= encuesta.getNomEncuesta() %></td>
-            <td><button onclick="window.location.href = 'ServletPreguntasInstertar?id=<%=encuesta.getIdEncuesta()%>';">Definir preguntas</button>
+            <td><button onclick="window.location.href = 'ServletPreguntasInsertar?id=<%=encuesta.getIdEncuesta()%>';">Definir preguntas</button>
             <td><button onclick="window.location.href = 'ServletEncuestaEditar?id=<%= encuesta.getIdEncuesta()%>';">Editar</button>                               
             <td><button onclick="window.location.href = 'ServletEncuestaBorrar?id=<%= encuesta.getIdEncuesta()%>';">Borrar</button>
         </tr>

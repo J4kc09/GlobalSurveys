@@ -20,7 +20,7 @@
             Descripción:<input type="text" name="descripcion" value=""/> <br/>
              <input type="submit" value="Crear" />
         </form>
-        <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
+        <button onclick="history.back()">Volver</button>
         
         
     </body>

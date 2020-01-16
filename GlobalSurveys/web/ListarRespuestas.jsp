@@ -15,28 +15,24 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Respuestas</title>
     <%
-        Respuesta cliente = (Respuesta)request.getAttribute("cliente");
-        List<Respuesta> listaRespuestas = (List) request.getAttribute("respuesta");
         String error = (String)request.getAttribute("error");
-        if (error == null) error = "";
+        if (error == null) error = ""; 
+        List<Respuesta> lista = (List) request.getAttribute("listado");
     %>
     </head>
     <body>
         <div>
         <h1>Listado de respuestas</h1>
         <fieldset>
-        <table>
             <p style="color: red"><%=error%></p>
-            <%
-                
-                for (Pregunta id : lista) {
+        <table>
+            <% 
+                for (Respuesta cliente : lista) {
             %>
             <tr>
-                <td><%= id.getIdRespuesta()%></td>
-                <td><%= id.getIdPregunta()%></td>
-                <td><%= id.getRespuesta() %></td>
-                <td><button onclick="window.location.href = 'ServletRespuestasEditar?id=<%=id.getIdRespuesta()%>';">Editar</button>                               
-                <td><button onclick="window.location.href = 'ServletRespuestasBorrar?id=<%= id.getIdRespuesta()%>';">Borrar</button>                                    
+                <td>·<%= cliente.getRespuesta() %></td>
+                <td><button onclick="window.location.href = 'ServletRespuestasEditar?id=<%=cliente.getIdRespuesta()%>';">Editar</button>                               
+                <td><button onclick="window.location.href = 'ServletRespuestasBorrar?id=<%= cliente.getIdRespuesta()%>';">Borrar</button>                                    
             </tr>
             <%     
                 }
@@ -44,7 +40,7 @@
         </table>
         </fieldset>
         <button onclick="window.location.href = 'CrearRespuesta.jsp?id=<%= request.getParameter("id")%>';">Añadir respuesta</button>
-        <button onclick="window.location.href = 'Preguntas';">Volver</button>
+         <button onclick="history.back()">Volver</button>
         </div>
     </body>
 </html>

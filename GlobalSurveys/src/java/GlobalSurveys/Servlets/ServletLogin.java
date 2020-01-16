@@ -66,7 +66,7 @@ public class ServletLogin extends HttpServlet {
                 } else {
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("usuario", user.getIdUsuario());
-                    RequestDispatcher rd4 = request.getRequestDispatcher("PanelUsuario.jsp");
+                    RequestDispatcher rd4 = request.getRequestDispatcher("EncuestasUsuario");
                     rd4.forward(request, response);
 
                 }

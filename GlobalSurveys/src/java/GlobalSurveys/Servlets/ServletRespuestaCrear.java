@@ -23,15 +23,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author acarr
  */
-@WebServlet(name = "ServletRespuestasBorrar", urlPatterns = {"/ServletRespuestasBorrar"})
-public class ServletRespuestasBorrar extends HttpServlet {
-
-    @EJB
-    private PreguntaFacade preguntaFacade;
+@WebServlet(name = "ServletRespuestaCrear", urlPatterns = {"/ServletRespuestaCrear"})
+public class ServletRespuestaCrear extends HttpServlet {
 
     @EJB
     private RespuestaFacade respuestaFacade;
-    
+
+    @EJB
+    private PreguntaFacade preguntaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,18 +43,25 @@ public class ServletRespuestasBorrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        String str = request.getParameter("id");
-        Respuesta resp = this.respuestaFacade.find(new Long(str));
-        Pregunta preg = resp.getIdPregunta();
-        preg.getRespuestaList().remove(resp);
         
-        this.preguntaFacade.edit(preg);
-        this.respuestaFacade.remove(resp);
         
-
-        RequestDispatcher rd = request.getRequestDispatcher("Respuestas?id=");
+         Respuesta respuesta = new Respuesta(); 
+         String str = request.getParameter("idrespuesta");
+         respuesta.setIdRespuesta(new Long(str));
+         
+         str = request.getParameter("respuesta");
+         respuesta.setRespuesta(str);
+         
+         
+         str = request.getParameter("pregunta");
+         Pregunta pregunta = preguntaFacade.find(new Long(str));
+         respuesta.setIdPregunta(pregunta);
+         pregunta.getRespuestaList().add(respuesta);
+         
+          this.respuestaFacade.create(respuesta);
+          this.preguntaFacade.edit(pregunta);
+                 
+        RequestDispatcher rd = request.getRequestDispatcher("Preguntas");
         rd.forward(request, response);
     }
 

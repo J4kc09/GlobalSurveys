@@ -5,12 +5,14 @@
  */
 package GlobalSurveys.Servlets;
 
+import GlobalSurveys.Ejb.EncuestaFacade;
 import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Entity.Encuesta;
 import GlobalSurveys.Entity.Pregunta;
-import GlobalSurveys.Entity.Respuesta;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,18 +21,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author acarr
+/*
+ * @author sergio13v
  */
-@WebServlet(name = "ServletRespuestasBorrar", urlPatterns = {"/ServletRespuestasBorrar"})
-public class ServletRespuestasBorrar extends HttpServlet {
 
+@WebServlet(name = "ServletPreguntasInsertar", urlPatterns = {"/ServletPreguntasInsertar"})
+public class ServletPreguntasInsertar extends HttpServlet {
+
+    @EJB
+    private EncuestaFacade encuestaFacade;
+    
     @EJB
     private PreguntaFacade preguntaFacade;
-
-    @EJB
-    private RespuestaFacade respuestaFacade;
+    
     
 
     /**
@@ -44,18 +47,16 @@ public class ServletRespuestasBorrar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
         String str = request.getParameter("id");
-        Respuesta resp = this.respuestaFacade.find(new Long(str));
-        Pregunta preg = resp.getIdPregunta();
-        preg.getRespuestaList().remove(resp);
         
-        this.preguntaFacade.edit(preg);
-        this.respuestaFacade.remove(resp);
+        Encuesta encuesta = this.encuestaFacade.find(new Long (str));
+        request.setAttribute("encuesta", encuesta);
         
-
-        RequestDispatcher rd = request.getRequestDispatcher("Respuestas?id=");
+        List<Pregunta> lista = this.preguntaFacade.findAll();
+        request.setAttribute("listado", lista);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("InsertarPregunta.jsp");
         rd.forward(request, response);
     }
 

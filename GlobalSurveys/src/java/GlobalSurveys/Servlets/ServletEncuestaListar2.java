@@ -5,12 +5,11 @@
  */
 package GlobalSurveys.Servlets;
 
-import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Ejb.RespuestaFacade;
-import GlobalSurveys.Entity.Pregunta;
-import GlobalSurveys.Entity.Respuesta;
+import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Entity.Encuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,17 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author acarr
+ * @author ilariadot
  */
-@WebServlet(name = "ServletRespuestasBorrar", urlPatterns = {"/ServletRespuestasBorrar"})
-public class ServletRespuestasBorrar extends HttpServlet {
+@WebServlet(name = "ServletEncuestaListar2", urlPatterns = {"/EncuestasUsuario"})
+public class ServletEncuestaListar2 extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
-
-    @EJB
-    private RespuestaFacade respuestaFacade;
-    
+    private EncuestaFacade encuestaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,16 +41,9 @@ public class ServletRespuestasBorrar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String str = request.getParameter("id");
-        Respuesta resp = this.respuestaFacade.find(new Long(str));
-        Pregunta preg = resp.getIdPregunta();
-        preg.getRespuestaList().remove(resp);
-        
-        this.preguntaFacade.edit(preg);
-        this.respuestaFacade.remove(resp);
-        
-
-        RequestDispatcher rd = request.getRequestDispatcher("Respuestas?id=");
+        List<Encuesta> lista = this.encuestaFacade.findAll();
+        request.setAttribute("listado", lista);
+        RequestDispatcher rd = request.getRequestDispatcher("PanelUsuario.jsp");
         rd.forward(request, response);
     }
 

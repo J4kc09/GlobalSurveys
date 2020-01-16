@@ -37,7 +37,7 @@
         </table>
         </fieldset>
         <button onclick="window.location.href = 'CrearPregunta.jsp';">Añadir pregunta</button>
-        <button onclick="window.location.href = 'EncuestasAdmin';">Volver</button>
+         <button onclick="history.back()">Volver</button>
         </div>
     </body>
 </html>

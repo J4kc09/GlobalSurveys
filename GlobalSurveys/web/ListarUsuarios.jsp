@@ -40,6 +40,6 @@
             %>    
         </table>
         <button onclick="window.location.href = 'CrearUsuario.jsp';">Añadir usuario</button>
-        <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
+         <button onclick="history.back()">Volver</button>
     </body>
 </html>

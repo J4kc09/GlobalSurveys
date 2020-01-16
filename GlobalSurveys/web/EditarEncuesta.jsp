@@ -26,5 +26,6 @@
 
            <input type="submit" value="Enviar" />
         </form>
+        <button onclick="history.back()">Volver</button>
     </body>
 </html>

@@ -30,18 +30,12 @@ public class RespuestaFacade extends AbstractFacade<Respuesta> {
     public RespuestaFacade() {
         super(Respuesta.class);
     }
-
-    public Respuesta buscarPorIdPregunta(String id) {
-        Query q;
-        q = this.getEntityManager().createNamedQuery("Respuesta.findByIdPregunta");
-        q.setParameter("idPregunta", id);
-
-        List<Respuesta> lista = q.getResultList();
-        if (lista == null || lista.isEmpty()) {
-            return null;
-        } else {
-            return lista.get(0);
-        }
-    }
+    
+    @Override
+    public void create(Respuesta entity) {
+           super.create(entity);
+           this.getEntityManager().flush();
+    } 
+   
 
 }

@@ -19,8 +19,8 @@
             <input type="hidden" name="id" value="<%= cliente.getIdPregunta()%>" />
             <input type="text" name="nombre" value="<%= cliente.getPregunta() %>" /> <br/>           
             <input type="submit" value="Enviar" />
-            <button onclick="window.location.href = 'Preguntas';">Volver</button>
         </form>
+        <button onclick="history.back()">Volver</button>
         </div>
     </body>
 </html>

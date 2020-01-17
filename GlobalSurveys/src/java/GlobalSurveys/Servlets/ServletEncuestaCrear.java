@@ -6,18 +6,10 @@
 package GlobalSurveys.Servlets;
 
 import GlobalSurveys.Ejb.EncuestaFacade;
-import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Ejb.RespuestaFacade;
-import GlobalSurveys.Ejb.SesionFacade;
-import GlobalSurveys.Ejb.SesionPreguntasFacade;
 import GlobalSurveys.Entity.Encuesta;
-import GlobalSurveys.Entity.Pregunta;
-import GlobalSurveys.Entity.Respuesta;
-import GlobalSurveys.Entity.Sesion;
-import GlobalSurveys.Entity.SesionPreguntas;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,28 +17,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Articuno
+ * @author damdm-2019
  */
-@WebServlet(name = "ServletEncuestaEnviar", urlPatterns = {"/ServletEncuestaEnviar"})
-public class ServletEncuestaEnviar extends HttpServlet {
-
-    @EJB
-    private SesionPreguntasFacade sesionPreguntasFacade;
-
-    @EJB
-    private SesionFacade sesionFacade;
-
-    @EJB
-    private RespuestaFacade respuestaFacade;
+@WebServlet(name = "ServletEncuestaCrear", urlPatterns = {"/ServletEncuestaCrear"})
+public class ServletEncuestaCrear extends HttpServlet {
 
     @EJB
     private EncuestaFacade encuestaFacade;
-
-
+    private String descripcion;
+   
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,35 +41,30 @@ public class ServletEncuestaEnviar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
 
-        HttpSession sesion = request.getSession();
-        Sesion sesionuser = (Sesion) sesion.getAttribute("sesion");
+        Encuesta encuesta = new Encuesta(); 
+        encuesta.setIdEncuesta(new Long(0));
+         
+         String str = request.getParameter("descripcion");
+         encuesta.setDescripcionEncuesta(str);
+         str = request.getParameter("encuesta");
+         encuesta.setNomEncuesta(str);
+         
+          this.encuestaFacade.create(encuesta);
+         
+         List<Encuesta> listaencuesta = this.encuestaFacade.findAll();
+            request.setAttribute("encuesta", listaencuesta);            
+         
+         
+
+       
         
-          String str = request.getParameter("idencuesta");
-         
-          Encuesta encuesta = this.encuestaFacade.find(new Long(str));
-         
-            for (Pregunta preg: encuesta.getPreguntaList()) {                
-                str = request.getParameter(preg.getIdPregunta()+"");
-                if (str == null) continue;
-                Respuesta resp = this.respuestaFacade.find(new Long(str));
-                
-                
-                SesionPreguntas sespreg = new SesionPreguntas(sesionuser.getIdSesion(), preg.getIdPregunta());
-                sespreg.setSesion(sesionuser);
-                sespreg.setPregunta(preg);
-                sespreg.setIdRespuesta(resp);
-                
-                sesionuser.getSesionPreguntasList().add(sespreg);
-                this.sesionPreguntasFacade.create(sespreg);
-                this.sesionFacade.edit(sesionuser);               
-            }
-
-          sesion.setAttribute("idencuesta", encuesta.getIdEncuesta());
-                    
-                    
-         RequestDispatcher rd = request.getRequestDispatcher("EncuestasUsuario");
-        rd.forward(request, response);    
+        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
+        rd.forward(request, response);
+        
+        
+        
         
     }
 

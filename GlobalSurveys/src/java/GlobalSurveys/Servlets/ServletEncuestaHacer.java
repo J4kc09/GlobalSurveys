@@ -69,9 +69,8 @@ public class ServletEncuestaHacer extends HttpServlet {
          request.setAttribute("idencuesta", encuesta);
          Long idusuario =(Long) sesion.getAttribute("usuario");
          Usuario usuario = usuarioFacade.find(idusuario);
-         
-      
 
+         
           Sesion sesionuser = new Sesion();
           sesionuser.setIdEncuesta(encuesta);
           sesionuser.setIdUsuario(usuario);
@@ -87,9 +86,7 @@ public class ServletEncuestaHacer extends HttpServlet {
                     
          RequestDispatcher rd = request.getRequestDispatcher("HacerEncuesta.jsp");
         rd.forward(request, response); 
-        
-        
-        
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

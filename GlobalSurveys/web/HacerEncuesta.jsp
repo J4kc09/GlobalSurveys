@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Encuesta</title>
     </head>
     <%
         Encuesta encuesta = (Encuesta)request.getAttribute("idencuesta");       
@@ -53,5 +53,6 @@ function myFunction() {
         </table>
         <input type="submit" value="Enviar" />
         </form>
+        <button onclick="history.back()">Volver</button>
     </body>
 </html>

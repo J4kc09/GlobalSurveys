@@ -6,9 +6,11 @@
 package GlobalSurveys.Ejb;
 
 import GlobalSurveys.Entity.Respuesta;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,11 @@ public class RespuestaFacade extends AbstractFacade<Respuesta> {
         super(Respuesta.class);
     }
     
+    @Override
+    public void create(Respuesta entity) {
+           super.create(entity);
+           this.getEntityManager().flush();
+    } 
+   
+
 }

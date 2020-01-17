@@ -60,19 +60,13 @@ public class ServletLogin extends HttpServlet {
             if (user.getPasswd().equals(pass)) {
 
                 if (true == user.getAdmin()) {
-                    
-               
-                            
-                    
 
-                    RequestDispatcher rd3 = request.getRequestDispatcher("PanelAdmin.jsp");
+                    RequestDispatcher rd3 = request.getRequestDispatcher("EncuestasAdmin");
                     rd3.forward(request, response);
                 } else {
-                    
                     HttpSession sesion = request.getSession();
                     sesion.setAttribute("usuario", user.getIdUsuario());
-                    
-                    RequestDispatcher rd4 = request.getRequestDispatcher("PanelUsuario.jsp");
+                    RequestDispatcher rd4 = request.getRequestDispatcher("EncuestasUsuario");
                     rd4.forward(request, response);
 
                 }

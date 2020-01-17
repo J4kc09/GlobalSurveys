@@ -1,6 +1,6 @@
 <%-- 
-    Document   : PanelUsuario
-    Created on : 08-ene-2020, 20:22:09
+    Document   : UsuarioVerEncuestas
+    Created on : 14-ene-2020, 17:13:01
     Author     : Articuno
 --%>
 
@@ -11,27 +11,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta charset="ISO-8859-1">
-        
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <title>Panel Usuario</title>
+        <title>Home</title>
     </head>
-    <body class="bg-info">
-        <div class="container">
-            <div class="row justify-content-md-center">
-                <div class="col-4 display-1 mx-auto">
-                    <h1>Panel Usuario</h1>
-                </div>
-                     
-            </div>
-        
-        <br/>
-        <br/>
-            <div class="row">
-                <div class="col align-self-center">
-        <button onclick="window.location.href = 'ServletEncuestaListar';">Ver encuestas disponibles</button>
-                 </div>
-            </div>     
-       </div>    
-        
+    <%
+        List<Encuesta> lista = (List)request.getAttribute("listado");
+    %>
+    <body>
+        <h1>Listado de Encuestas</h1>
+        <form action="ServletEncuestaHacer">
+        <table>
+            <%
+                for (Encuesta cliente: lista) {
+            %>
+            <tr>
+                <td><%= cliente.getNomEncuesta()%></td>
+                <td><%= cliente.getDescripcionEncuesta() %></td>
+                <td><a href='ServletEncuestaHacer?id=<%= cliente.getIdEncuesta()%>'>Hacer Encuesta</a>
+                    
+            </tr>
+            <%
+                }
+            %>    
+        </table>
+        </form>
+    </body>
 </html>

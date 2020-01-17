@@ -49,7 +49,7 @@ public class ServletEncuestaBorrar extends HttpServlet {
 
         this.encuestaFacade.remove(encuesta);
 
-        RequestDispatcher rd = request.getRequestDispatcher("ServletEncuestaListar");
+        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
         rd.forward(request, response);
 
       

@@ -10,18 +10,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Crear encuesta</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
     <body>
-         <form action="ServletEncuestaCrear">
-             
+        <div>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">CREADOR DE ENCUESTAS</h1></span>
+        <form action="ServletEncuestaCrear">
+             <fieldset>
              <input type="hidden" name="id" value="0" />
-            CREADOR DE ENCUESTAS <br/> 
-            Titulo:<input type="text" name="encuesta" value="" /> <br/>
-            Descripción:<input type="text" name="descripcion" value=""/> <br/>
+             Titulo:<input class="input1" type="text" name="encuesta" value="" /> <br/>
+             Descripción:<input class="input1" type="text" name="descripcion" value=""/> <br/>
+             </fieldset>
              <input type="submit" value="Crear" />
+             <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </form>
-        <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
-        
-        
+        </div>  
     </body>
 </html>

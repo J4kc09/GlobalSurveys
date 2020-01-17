@@ -134,9 +134,5 @@ public class Pregunta implements Serializable {
     public String toString() {
         return "Entity.Pregunta[ idPregunta=" + idPregunta + " ]";
     }
-
-    public void setPregunta(List<Pregunta> listaPreguntas) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
 }

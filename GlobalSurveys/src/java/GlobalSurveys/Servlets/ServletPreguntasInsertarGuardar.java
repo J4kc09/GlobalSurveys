@@ -73,7 +73,7 @@ public class ServletPreguntasInsertarGuardar extends HttpServlet {
         
         this.encuestaFacade.edit(enc);
         
-        RequestDispatcher rd = request.getRequestDispatcher("ServletEncuestaListar");
+        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
         rd.forward(request, response);
     }
 

@@ -12,13 +12,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Usuarios</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     <%
         List<Usuario> lista = (List)request.getAttribute("listado");
     %>
     </head>
     <body>
-        <h1>Listado de usuarios</h1>
-        
+        <div>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">LISTADO DE USUARIOS</h1></span>
+        <fieldset>
         <table>
             <tr>
                 <th>Usuario</th>
@@ -39,7 +41,9 @@
                 }
             %>    
         </table>
-        <button onclick="window.location.href = 'CrearUsuario.jsp';">Añadir usuario</button>
-        <button onclick="window.location.href = 'PanelAdmin.jsp';">Volver</button>
+        </fieldset>
+        <button class="boton" onclick="window.location.href = 'CrearUsuario.jsp';">Añadir usuario</button>
+        <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
+        </div>
     </body>
 </html>

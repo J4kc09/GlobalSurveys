@@ -5,7 +5,9 @@
  */
 package GlobalSurveys.Servlets;
 
+import GlobalSurveys.Ejb.PreguntaFacade;
 import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Entity.Pregunta;
 import GlobalSurveys.Entity.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,7 +27,11 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletRespuestasBorrar extends HttpServlet {
 
     @EJB
+    private PreguntaFacade preguntaFacade;
+
+    @EJB
     private RespuestaFacade respuestaFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,11 +47,15 @@ public class ServletRespuestasBorrar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String str = request.getParameter("id");
-        Respuesta cliente = this.respuestaFacade.find(new Long(str));
+        Respuesta resp = this.respuestaFacade.find(new Long(str));
+        Pregunta preg = resp.getIdPregunta();
+        preg.getRespuestaList().remove(resp);
+        
+        this.preguntaFacade.edit(preg);
+        this.respuestaFacade.remove(resp);
+        
 
-        this.respuestaFacade.remove(cliente);
-
-        RequestDispatcher rd = request.getRequestDispatcher("Respuestas");
+        RequestDispatcher rd = request.getRequestDispatcher("Respuestas?id=");
         rd.forward(request, response);
     }
 

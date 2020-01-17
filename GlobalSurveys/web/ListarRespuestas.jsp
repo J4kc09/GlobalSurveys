@@ -15,35 +15,32 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Respuestas</title>
     <%
-        String id2 = request.getParameter("id");
-        List<Respuesta> lista = (List)request.getAttribute("listado");
         String error = (String)request.getAttribute("error");
-        if (error == null) error = "";
+        if (error == null) error = ""; 
+        List<Respuesta> lista = (List) request.getAttribute("listado");
     %>
     </head>
     <body>
         <div>
-        <h1>Listado de respuestas</h1>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">LISTADO DE RESPUESTAS</h1></span>
         <fieldset>
-        <table>
             <p style="color: red"><%=error%></p>
-            <%
-                for (Respuesta id:lista) {
+        <table>
+            <% 
+                for (Respuesta cliente : lista) {
             %>
             <tr>
-                <td><%= id.getIdRespuesta()%></td>
-                <td><%= id.getIdPregunta()%></td>
-                <td><%= id.getRespuesta() %></td>
-                <td><button onclick="window.location.href = 'ServletRespuestasEditar?id=<%=id.getIdRespuesta()%>';">Editar</button>                               
-                <td><button onclick="window.location.href = 'ServletRespuestasBorrar?id=<%= id.getIdRespuesta()%>';">Borrar</button>                                    
+                <td>·<%= cliente.getRespuesta() %></td>
+                <td><button onclick="window.location.href = 'ServletRespuestasEditar?id=<%=cliente.getIdRespuesta()%>';">Editar</button>                               
+                <td><button onclick="window.location.href = 'ServletRespuestasBorrar?id=<%= cliente.getIdRespuesta()%>';">Borrar</button>                                    
             </tr>
             <%     
                 }
             %>    
         </table>
         </fieldset>
-        <button onclick="window.location.href = 'CrearRespuesta.jsp?id=<%= request.getParameter("id")%>';">Añadir respuesta</button>
-        <button onclick="window.location.href = 'Preguntas';">Volver</button>
+        <button class="boton" onclick="window.location.href = 'CrearRespuesta.jsp?id=<%= request.getParameter("id")%>';">Añadir respuesta</button>
+        <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </div>
     </body>
 </html>

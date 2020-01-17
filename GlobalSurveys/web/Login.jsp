@@ -13,7 +13,7 @@
         <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
    <body>        
-    <div align="center">
+    <div align="center" class="Login">
     <img src="https://karrasko.ddns.net/assets/globalsurveys.png" alt="GlobalSurveys logo" height="200">
     <% 
     String error = (String)request.getAttribute("error");
@@ -21,9 +21,9 @@
     %>  
             <form action ="Login">
 
-                <input type ="text" name="user" placeholder="Nombre de usuario"/><br>
-                <input type="password" name="pass" placeholder="Contraseña"/><br>
-                <input type="submit" value="Iniciar sesión">
+                <input class="input" type ="text" name="user" placeholder="Nombre de usuario"/><br>
+                <input class="input" type="password" name="pass" placeholder="Contraseña"/><br>
+                <input class="input" id="iniciar" type="submit" value="Iniciar sesión">
                    
             </form>
             <p style="color: red"><%=error%></p>

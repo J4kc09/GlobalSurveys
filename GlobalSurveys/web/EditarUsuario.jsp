@@ -12,18 +12,21 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Editor de usuarios</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
     <%
         Usuario cliente = (Usuario)request.getAttribute("cliente");
         List<Usuario> listaUsuarios = (List) request.getAttribute("usuario");
     %>    
     <body>
-        <h1>Editor de usuarios:</h1>
+        <div>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">EDITOR DE USUARIOS</h1></span>
         <form action="ServletUsuariosGuardar">
-            ID Cliente: <%= cliente.getIdUsuario()%> <br>
+            <fieldset>
+            <legend>ID Cliente: <%= cliente.getIdUsuario()%></legend>
             <input type="hidden" name="id" value="<%= cliente.getIdUsuario()%>" />
-            Usuario <input type="text" name="nombre" value="<%= cliente.getNomUsuario() %>" /> <br/>
-            Contraseña <input type="text" name="password" value="<%= cliente.getPasswd() %>" /> <br/> 
+            Usuario <input class="input1" type="text" name="nombre" value="<%= cliente.getNomUsuario() %>" /> <br/>
+            Contraseña <input class="input1" type="text" name="password" value="<%= cliente.getPasswd() %>" /> <br/> 
 
             
             Admin <select name="admin">
@@ -42,9 +45,10 @@
             </select>
             
             
-            
+            </fieldset>
             <input type="submit" value="Enviar" />
-            <input type="button" onclick="history.back()" name="volver" value="Volver">
+            <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </form>
+        </div>
     </body>
 </html>

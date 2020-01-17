@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Creador de Usuarios</title>
+        <title>Creador de usuarios</title>
     </head>
     <body>
         <form action="ServletUsuarioCrear">

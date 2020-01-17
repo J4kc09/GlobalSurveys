@@ -11,7 +11,7 @@
     <head>
         <link rel="stylesheet" type="text/css" href="Styles.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Creador de Preguntas</title>
+        <title>Creador de preguntas</title>
     </head>
     <body>
         <form action="ServletPreguntasCrear">

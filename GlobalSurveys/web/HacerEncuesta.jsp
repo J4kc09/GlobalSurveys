@@ -16,36 +16,40 @@
         <title>JSP Page</title>
     </head>
     <%
-        Encuesta encuesta = (Encuesta)request.getAttribute("idencuesta");
-        List<Pregunta> listapreguntas = (List) request.getAttribute("listapreguntas");
-        List<Respuesta> listarespuestas = (List) request.getAttribute("listarespuestas");
-        
+        Encuesta encuesta = (Encuesta)request.getAttribute("idencuesta");       
     %>  
+    <script>
+function myFunction() {
+  document.getElementById("demo").style.color = "red";
+}
+</script>
     <body>
-        <h1>ENCUESTA</h1>
+        <h1><%= encuesta.getNomEncuesta() %></h1>
         <form action="ServletEncuestaEnviar">
-            Nombre de la Encuesta <%= encuesta.getNomEncuesta() %> <br>
+            <input type="hidden" name="idencuesta" value="<%= encuesta.getIdEncuesta() %>">
+            <br>
             Preguntas:
                          
         <table>
            <%
-                    for (Pregunta preg:listapreguntas) {
+                    for (Pregunta preg:encuesta.getPreguntaList()) {
                      %>
                      
-  <option value="<%= preg.getIdPregunta()%>">
-      <%= preg.getPregunta()%>
-  <%for (Respuesta resp:listarespuestas) {
-      if (resp.getIdPregunta().equals(preg.getIdPregunta())) {
-                        
-                     %>                       
-  <option value="<%= preg.getIdPregunta()%>">
-      <%= preg.getPregunta()%>
-  
-  </option>
+                     <%= preg.getPregunta() %> <br/>
+                     <%
+                         for (Respuesta res:preg.getRespuestaList()) {
+                     %>
+                     
+                    
+                     <input type="radio" name="<%= preg.getIdPregunta()%>" value="<%= res.getIdRespuesta() %>"/>
+                     <%= res.getRespuesta() %>  <br/>                 
   
                  <%
-                     }
-                 %>
+                       } %>
+                         <br/> 
+                         <br/>   
+                   <%  }
+                         %>
         </table>
         <input type="submit" value="Enviar" />
         </form>

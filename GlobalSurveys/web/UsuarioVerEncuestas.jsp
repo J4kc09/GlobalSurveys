@@ -27,7 +27,7 @@
                 <td><%= cliente.getNomEncuesta()%></td>
                 <td><%= cliente.getDescripcionEncuesta() %></td>
                 <td><a href='ServletEncuestaHacer?id=<%= cliente.getIdEncuesta()%>'>Hacer Encuesta</a>
-                    
+                  
             </tr>
             <%
                 }

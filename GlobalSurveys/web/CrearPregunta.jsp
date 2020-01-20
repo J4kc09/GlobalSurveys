@@ -14,16 +14,12 @@
         <title>Creador de preguntas</title>
     </head>
     <body>
-        <div>
-        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">CREADOR DE PREGUNTAS</h1></span>
         <form action="ServletPreguntasCrear">
-            <fieldset
              <input type="hidden" name="id" value="0" />
-             Enunciado de la pregunta:<input class="input1" type="text" name="pregunta" value="" /> <br/>
-            </fieldset>
+            CREADOR DE PREGUNTAS <br/> 
+            Enunciado de la pregunta:<input type="text" name="pregunta" value="" /> <br/>
            <input type="submit" value="Crear" />
-           <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </form>
-        </div>
+        <button onclick="history.back()">Volver</button>
     </body>
 </html>

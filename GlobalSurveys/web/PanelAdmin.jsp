@@ -41,7 +41,7 @@
         <button class="boton" onclick="window.location.href = 'CrearEncuesta.jsp';">Crear nueva encuesta</button>
         <button class="boton" onclick="window.location.href = 'Preguntas';">Listado de preguntas</button>
         <button class="boton" onclick="window.location.href = 'Usuarios';">Usuarios</button>
-        <button class="boton" onclick="window.location.href = 'Registros';">Registros</button>
+        <button class="boton" onclick="window.location.href = 'ServletRegistrosListar';">Registros</button>
         </div>
     </body>
 </html>

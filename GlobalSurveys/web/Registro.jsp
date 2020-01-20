@@ -37,5 +37,6 @@
             %>    
         </table>
         </form>
+        <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
     </body>
 </html>

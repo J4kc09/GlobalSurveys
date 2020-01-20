@@ -16,17 +16,13 @@
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Panel Admin</title>
-
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
     <body>
-        <h1>Panel Admin</h1>
-        <button onclick="window.location.href = 'CrearEncuesta.jsp';">Crear nueva encuesta</button>
-        <button onclick="window.location.href = 'Preguntas';">Listado de preguntas</button>
-        <button onclick="window.location.href = 'Usuarios';">Usuarios</button>
-        <button onclick="window.location.href = 'ServletRegistrosListar';">Ver Registros</button>
-        
-        <legend>Encuestas</legend>
-        <fieldset> 
+        <div>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">PANEL DE ADMINISTRADOR</h1></span>
+        <fieldset>
+        <legend>ENCUESTAS</legend>
         <table>
         <%
          for (Encuesta encuesta: lista) {
@@ -41,6 +37,11 @@
                 }
             %>       
         </table>
-        </fieldset> 
+        </fieldset>
+        <button class="boton" onclick="window.location.href = 'CrearEncuesta.jsp';">Crear nueva encuesta</button>
+        <button class="boton" onclick="window.location.href = 'Preguntas';">Listado de preguntas</button>
+        <button class="boton" onclick="window.location.href = 'Usuarios';">Usuarios</button>
+        <button class="boton" onclick="window.location.href = 'ServletRegistrosListar';">Registros</button>
+        </div>
     </body>
 </html>

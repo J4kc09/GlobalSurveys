@@ -15,13 +15,15 @@
     %>    
     <body>
         <div>
-        <h1>Editor de preguntas:</h1>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">EDITOR DE RESPUESTAS</h1></span>
         <form action="ServletRespuestasGuardar">
+            <fieldset
             <input type="hidden" name="id" value="<%= cliente.getIdRespuesta()%>" />
-            <input type="text" name="nombre" value="<%= cliente.getRespuesta() %>" /> <br/>           
+            <input class="input1" type="text" name="nombre" value="<%= cliente.getRespuesta() %>" /> <br/>           
+            </fieldset>
             <input type="submit" value="Enviar" />
+            <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </form>
-        <button onclick="history.back()">Volver</button>
         </div>
     </body>
 </html>

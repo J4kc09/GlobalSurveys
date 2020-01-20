@@ -12,20 +12,24 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Editor de encuestas</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
     <%
         Encuesta encuesta = (Encuesta)request.getAttribute("encuesta");
     %>    
     <body>
-        <h1>Editor de encuestas:</h1>
+        <div>
+            <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">EDITOR DE ENCUESTAS</h1></span>
             <form action="ServletEncuestaGuardar">
-            ID Encuesta: <%= encuesta.getIdEncuesta()%> <br>
+            <fieldset>
+            <legend>ID Encuesta: <%= encuesta.getIdEncuesta()%> </legend>
             <input type="hidden" name="id" value="<%= encuesta.getIdEncuesta()%>" />
-            Nombre:<input type="text" name="nombre" value="<%=encuesta.getNomEncuesta() %>" />
-            Descripción:<input type="text" name="descripcion" value="<%=encuesta.getDescripcionEncuesta()%>" /><br/>  
-
+            Nombre:<input class="input1" type="text" name="nombre" value="<%=encuesta.getNomEncuesta() %>" />
+            Descripción:<input class="input1" type="text" name="descripcion" value="<%=encuesta.getDescripcionEncuesta()%>" /><br/>  
+            </fieldset>
            <input type="submit" value="Enviar" />
+           <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </form>
-        <button onclick="history.back()">Volver</button>
+        </div>
     </body>
 </html>

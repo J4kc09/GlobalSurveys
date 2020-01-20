@@ -22,7 +22,7 @@
     </head>
     <body>
         <div>
-        <h1>Listado de respuestas</h1>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">LISTADO DE RESPUESTAS</h1></span>
         <fieldset>
             <p style="color: red"><%=error%></p>
         <table>
@@ -39,8 +39,8 @@
             %>    
         </table>
         </fieldset>
-        <button onclick="window.location.href = 'CrearRespuesta.jsp?id=<%= request.getParameter("id")%>';">Añadir respuesta</button>
-         <button onclick="history.back()">Volver</button>
+        <button class="boton" onclick="window.location.href = 'CrearRespuesta.jsp?id=<%= request.getParameter("id")%>';">Añadir respuesta</button>
+        <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </div>
     </body>
 </html>

@@ -14,6 +14,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Encuesta</title>
+        <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
     <%
         Encuesta encuesta = (Encuesta)request.getAttribute("idencuesta");       
@@ -24,11 +25,13 @@ function myFunction() {
 }
 </script>
     <body>
-        <h1><%= encuesta.getNomEncuesta() %></h1>
+        <div>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto"><h1><%= encuesta.getNomEncuesta() %></h1></h1></span>
         <form action="ServletEncuestaEnviar">
+            <fieldset>
+            <legend>PREGUNTAS</legend>
             <input type="hidden" name="idencuesta" value="<%= encuesta.getIdEncuesta() %>">
             <br>
-            Preguntas:
                          
         <table>
            <%
@@ -51,8 +54,10 @@ function myFunction() {
                    <%  }
                          %>
         </table>
+        </fieldset>
         <input type="submit" value="Enviar" />
+        <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </form>
-        <button onclick="history.back()">Volver</button>
+        </div>
     </body>
 </html>

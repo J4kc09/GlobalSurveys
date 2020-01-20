@@ -19,7 +19,7 @@
     </head>
     <body>
         <div>
-        <h1>Listado de preguntas</h1>
+        <span><img class="logo" id="imagen" src="https://karrasko.ddns.net/assets/logo.png" alt="GlobalSurveys logo" height="70"><h1 id="texto">LISTADO DE PREGUNTAS</h1></span>
         <fieldset>
         <table>
             <%
@@ -36,8 +36,8 @@
             %>    
         </table>
         </fieldset>
-        <button onclick="window.location.href = 'CrearPregunta.jsp';">Añadir pregunta</button>
-         <button onclick="history.back()">Volver</button>
+        <button class="boton" onclick="window.location.href = 'CrearPregunta.jsp';">Añadir pregunta</button>
+        <input type="button" class="boton" onclick="history.back()" name="volver" value="Volver">
         </div>
     </body>
 </html>

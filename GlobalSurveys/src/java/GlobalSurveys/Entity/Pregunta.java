@@ -5,7 +5,10 @@
  */
 package GlobalSurveys.Entity;
 
+import GlobalSurveys.Dto.PreguntaDto;
+import GlobalSurveys.Dto.RespuestaDto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -133,6 +136,20 @@ public class Pregunta implements Serializable {
     @Override
     public String toString() {
         return "Entity.Pregunta[ idPregunta=" + idPregunta + " ]";
+    }
+    
+    public PreguntaDto crearDTO () {
+        PreguntaDto dto = new PreguntaDto();
+        dto.setIdPregunta(idPregunta);
+        dto.setPregunta(pregunta);
+        if (this.respuestaList != null && !this.respuestaList.isEmpty()) {
+            List <RespuestaDto> lista = new ArrayList();
+            for (Respuesta resp:this.respuestaList) {
+                lista.add(resp.crearDTO());
+            }
+            dto.setRespuestaList(lista);
+        }
+        return dto;        
     }
     
 }

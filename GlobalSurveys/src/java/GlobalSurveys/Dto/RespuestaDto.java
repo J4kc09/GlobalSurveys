@@ -6,54 +6,16 @@
 package GlobalSurveys.Dto;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author acarr
  */
-@Entity
-@Table(name = "RESPUESTA")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Respuesta.findAll", query = "SELECT r FROM Respuesta r")
-    , @NamedQuery(name = "Respuesta.findByIdRespuesta", query = "SELECT r FROM Respuesta r WHERE r.idRespuesta = :idRespuesta")
-    , @NamedQuery(name = "Respuesta.findByRespuesta", query = "SELECT r FROM Respuesta r WHERE r.respuesta = :respuesta")})
-
 public class RespuestaDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID_RESPUESTA")
     private Long idRespuesta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "RESPUESTA")
     private String respuesta;
-    @OneToMany(mappedBy = "idRespuesta")
-    private List<SesionPreguntasDto> sesionPreguntasList;
-    @JoinColumn(name = "ID_PREGUNTA", referencedColumnName = "ID_PREGUNTA")
-    @ManyToOne(optional = false)
-    private PreguntaDto idPregunta;
 
     public RespuestaDto() {
     }
@@ -83,23 +45,6 @@ public class RespuestaDto implements Serializable {
         this.respuesta = respuesta;
     }
 
-    @XmlTransient
-    public List<SesionPreguntasDto> getSesionPreguntasList() {
-        return sesionPreguntasList;
-    }
-
-    public void setSesionPreguntasList(List<SesionPreguntasDto> sesionPreguntasList) {
-        this.sesionPreguntasList = sesionPreguntasList;
-    }
-
-    public PreguntaDto getIdPregunta() {
-        return idPregunta;
-    }
-
-    public void setIdPregunta(PreguntaDto idPregunta) {
-        this.idPregunta = idPregunta;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -124,5 +69,6 @@ public class RespuestaDto implements Serializable {
     public String toString() {
         return "Entity.Respuesta[ idRespuesta=" + idRespuesta + " ]";
     }
+    
     
 }

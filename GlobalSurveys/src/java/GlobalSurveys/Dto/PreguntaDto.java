@@ -7,52 +7,17 @@ package GlobalSurveys.Dto;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author acarr
  */
-@Entity
-@Table(name = "PREGUNTA")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Pregunta.findAll", query = "SELECT p FROM Pregunta p")
-    , @NamedQuery(name = "Pregunta.findByIdPregunta", query = "SELECT p FROM Pregunta p WHERE p.idPregunta = :idPregunta")
-    , @NamedQuery(name = "Pregunta.findByPregunta", query = "SELECT p FROM Pregunta p WHERE p.pregunta = :pregunta")})
 public class PreguntaDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID_PREGUNTA")
     private Long idPregunta;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "PREGUNTA")
     private String pregunta;
-    @ManyToMany(mappedBy = "preguntaList")
-    private List<EncuestaDto> encuestaList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pregunta")
-    private List<SesionPreguntasDto> sesionPreguntasList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPregunta")
     private List<RespuestaDto> respuestaList;
 
     public PreguntaDto() {
@@ -81,24 +46,6 @@ public class PreguntaDto implements Serializable {
 
     public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
-    }
-
-    @XmlTransient
-    public List<EncuestaDto> getEncuestaList() {
-        return encuestaList;
-    }
-
-    public void setEncuestaList(List<EncuestaDto> encuestaList) {
-        this.encuestaList = encuestaList;
-    }
-
-    @XmlTransient
-    public List<SesionPreguntasDto> getSesionPreguntasList() {
-        return sesionPreguntasList;
-    }
-
-    public void setSesionPreguntasList(List<SesionPreguntasDto> sesionPreguntasList) {
-        this.sesionPreguntasList = sesionPreguntasList;
     }
 
     @XmlTransient

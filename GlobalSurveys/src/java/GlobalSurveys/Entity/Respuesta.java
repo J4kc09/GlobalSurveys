@@ -5,6 +5,7 @@
  */
 package GlobalSurveys.Entity;
 
+import GlobalSurveys.Dto.RespuestaDto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -123,6 +124,13 @@ public class Respuesta implements Serializable {
     @Override
     public String toString() {
         return "Entity.Respuesta[ idRespuesta=" + idRespuesta + " ]";
+    }
+    
+    public RespuestaDto crearDTO () {
+        RespuestaDto dto = new RespuestaDto();
+        dto.setIdRespuesta(idRespuesta);
+        dto.setRespuesta(respuesta);
+        return dto;
     }
     
 }

@@ -19,26 +19,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author acarr
  */
-@Entity
-@Table(name = "SESION_PREGUNTAS")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SesionPreguntas.findAll", query = "SELECT s FROM SesionPreguntas s")
-    , @NamedQuery(name = "SesionPreguntas.findByIdSesion", query = "SELECT s FROM SesionPreguntas s WHERE s.sesionPreguntasPK.idSesion = :idSesion")
-    , @NamedQuery(name = "SesionPreguntas.findByIdPregunta", query = "SELECT s FROM SesionPreguntas s WHERE s.sesionPreguntasPK.idPregunta = :idPregunta")})
+
 public class SesionPreguntasDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
+    
     protected SesionPreguntasPKDto sesionPreguntasPK;
-    @JoinColumn(name = "ID_SESION", referencedColumnName = "ID_SESION", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    
     private SesionDto sesion;
-    @JoinColumn(name = "ID_PREGUNTA", referencedColumnName = "ID_PREGUNTA", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    
     private PreguntaDto pregunta;
-    @JoinColumn(name = "ID_RESPUESTA", referencedColumnName = "ID_RESPUESTA")
-    @ManyToOne
+    
     private RespuestaDto idRespuesta;
 
     public SesionPreguntasDto() {

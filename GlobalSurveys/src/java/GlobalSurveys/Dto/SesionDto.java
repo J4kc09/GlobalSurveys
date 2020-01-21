@@ -31,33 +31,18 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author acarr
  */
-@Entity
-@Table(name = "SESION")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Sesion.findAll", query = "SELECT s FROM Sesion s")
-    , @NamedQuery(name = "Sesion.findByIdSesion", query = "SELECT s FROM Sesion s WHERE s.idSesion = :idSesion")
-    , @NamedQuery(name = "Sesion.findByFecha", query = "SELECT s FROM Sesion s WHERE s.fecha = :fecha")})
 public class SesionDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID_SESION")
+    
     private Long idSesion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "FECHA")
-    @Temporal(TemporalType.TIMESTAMP)
+    
     private Date fecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sesion")
+    
     private List<SesionPreguntasDto> sesionPreguntasList;
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne(optional = false)
+    
     private UsuarioDto idUsuario;
-    @JoinColumn(name = "ID_ENCUESTA", referencedColumnName = "ID_ENCUESTA")
-    @ManyToOne(optional = false)
+   
     private EncuestaDto idEncuesta;
 
     public SesionDto() {

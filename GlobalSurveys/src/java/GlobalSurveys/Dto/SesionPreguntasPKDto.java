@@ -15,16 +15,11 @@ import javax.validation.constraints.NotNull;
  *
  * @author acarr
  */
-@Embeddable
 public class SesionPreguntasPKDto implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_SESION")
+    
     private long idSesion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_PREGUNTA")
+    
     private long idPregunta;
 
     public SesionPreguntasPKDto() {

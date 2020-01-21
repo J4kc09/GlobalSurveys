@@ -27,38 +27,19 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author acarr
  */
-@Entity
-@Table(name = "USUARIO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
-    , @NamedQuery(name = "Usuario.findByNomUsuario", query = "SELECT u FROM Usuario u WHERE u.nomUsuario = :nomUsuario")
-    , @NamedQuery(name = "Usuario.findByPasswd", query = "SELECT u FROM Usuario u WHERE u.passwd = :passwd")
-    , @NamedQuery(name = "Usuario.findByAdmin", query = "SELECT u FROM Usuario u WHERE u.admin = :admin")})
+
 public class UsuarioDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID_USUARIO")
+
     private Long idUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "NOM_USUARIO")
+
     private String nomUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "PASSWD")
+
     private String passwd;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ADMIN")
+
     private boolean admin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+
     private List<SesionDto> sesionList;
 
     public UsuarioDto() {

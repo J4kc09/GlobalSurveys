@@ -30,11 +30,6 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(GlobalSurveys.RestDto.EncuestaDtoFacadeREST.class);
-        resources.add(GlobalSurveys.RestDto.PreguntaDtoFacadeREST.class);
-        resources.add(GlobalSurveys.RestDto.RespuestaDtoFacadeREST.class);
-        resources.add(GlobalSurveys.RestDto.SesionDtoFacadeREST.class);
-        resources.add(GlobalSurveys.RestDto.SesionPreguntasDtoFacadeREST.class);
-        resources.add(GlobalSurveys.RestDto.UsuarioDtoFacadeREST.class);
     }
     
 }

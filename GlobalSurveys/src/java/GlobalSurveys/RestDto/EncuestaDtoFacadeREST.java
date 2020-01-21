@@ -6,17 +6,14 @@
 package GlobalSurveys.RestDto;
 
 import GlobalSurveys.Dto.EncuestaDto;
+import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Entity.Encuesta;
+import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -25,16 +22,34 @@ import javax.ws.rs.core.MediaType;
  * @author sergio13v
  */
 @Stateless
-@Path("globalsurveys.dto.encuestadto")
-public class EncuestaDtoFacadeREST extends AbstractFacade<EncuestaDto> {
+@Path("rest")
+public class EncuestaDtoFacadeREST {
 
-    @PersistenceContext(unitName = "GlobalSurveysPU")
-    private EntityManager em;
+    @EJB
+    private EncuestaFacade encuestaFacade;
+    
+
 
     public EncuestaDtoFacadeREST() {
-        super(EncuestaDto.class);
+        
     }
+    
 
+    @GET
+    @Path("encuestas")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public List<EncuestaDto> findAllEncuestas() {
+        List<Encuesta> lista = encuestaFacade.findAll();
+        List<EncuestaDto> listaDto = new ArrayList();
+        if (lista != null && !lista.isEmpty()) {
+            for (Encuesta encuesta:lista) {
+                listaDto.add(encuesta.crearDTO());
+            }
+        }
+        return listaDto;
+    }    
+
+    /*
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -62,12 +77,6 @@ public class EncuestaDtoFacadeREST extends AbstractFacade<EncuestaDto> {
         return super.find(id);
     }
 
-    @GET
-    @Override
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<EncuestaDto> findAll() {
-        return super.findAll();
-    }
 
     @GET
     @Path("{from}/{to}")
@@ -87,5 +96,6 @@ public class EncuestaDtoFacadeREST extends AbstractFacade<EncuestaDto> {
     protected EntityManager getEntityManager() {
         return em;
     }
+*/
     
 }

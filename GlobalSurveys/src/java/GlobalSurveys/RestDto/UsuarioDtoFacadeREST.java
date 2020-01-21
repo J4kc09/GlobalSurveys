@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package REST;
+package GlobalSurveys.RestDto;
 
-import GlobalSurveys.Entity.Respuesta;
+import GlobalSurveys.Dto.UsuarioDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author sergio13v
  */
 @Stateless
-@Path("globalsurveys.entity.respuesta")
-public class RespuestaFacadeREST extends AbstractFacade<Respuesta> {
+@Path("globalsurveys.dto.usuariodto")
+public class UsuarioDtoFacadeREST extends AbstractFacade<UsuarioDto> {
 
     @PersistenceContext(unitName = "GlobalSurveysPU")
     private EntityManager em;
 
-    public RespuestaFacadeREST() {
-        super(Respuesta.class);
+    public UsuarioDtoFacadeREST() {
+        super(UsuarioDto.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Respuesta entity) {
+    public void create(UsuarioDto entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Long id, Respuesta entity) {
+    public void edit(@PathParam("id") Long id, UsuarioDto entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class RespuestaFacadeREST extends AbstractFacade<Respuesta> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Respuesta find(@PathParam("id") Long id) {
+    public UsuarioDto find(@PathParam("id") Long id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Respuesta> findAll() {
+    public List<UsuarioDto> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Respuesta> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<UsuarioDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

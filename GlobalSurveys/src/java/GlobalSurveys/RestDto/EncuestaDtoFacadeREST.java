@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package REST;
+package GlobalSurveys.RestDto;
 
-import GlobalSurveys.Entity.Encuesta;
+import GlobalSurveys.Dto.EncuestaDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author sergio13v
  */
 @Stateless
-@Path("globalsurveys.entity.encuesta")
-public class EncuestaFacadeREST extends AbstractFacade<Encuesta> {
+@Path("globalsurveys.dto.encuestadto")
+public class EncuestaDtoFacadeREST extends AbstractFacade<EncuestaDto> {
 
     @PersistenceContext(unitName = "GlobalSurveysPU")
     private EntityManager em;
 
-    public EncuestaFacadeREST() {
-        super(Encuesta.class);
+    public EncuestaDtoFacadeREST() {
+        super(EncuestaDto.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Encuesta entity) {
+    public void create(EncuestaDto entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Long id, Encuesta entity) {
+    public void edit(@PathParam("id") Long id, EncuestaDto entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class EncuestaFacadeREST extends AbstractFacade<Encuesta> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Encuesta find(@PathParam("id") Long id) {
+    public EncuestaDto find(@PathParam("id") Long id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Encuesta> findAll() {
+    public List<EncuestaDto> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Encuesta> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<EncuestaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package REST;
+package GlobalSurveys.RestDto;
 
-import GlobalSurveys.Entity.SesionPreguntas;
-import GlobalSurveys.Entity.SesionPreguntasPK;
+import GlobalSurveys.Dto.SesionPreguntasDto;
+import GlobalSurveys.Dto.SesionPreguntasPKDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,13 +27,13 @@ import javax.ws.rs.core.PathSegment;
  * @author sergio13v
  */
 @Stateless
-@Path("globalsurveys.entity.sesionpreguntas")
-public class SesionPreguntasFacadeREST extends AbstractFacade<SesionPreguntas> {
+@Path("globalsurveys.dto.sesionpreguntasdto")
+public class SesionPreguntasDtoFacadeREST extends AbstractFacade<SesionPreguntasDto> {
 
     @PersistenceContext(unitName = "GlobalSurveysPU")
     private EntityManager em;
 
-    private SesionPreguntasPK getPrimaryKey(PathSegment pathSegment) {
+    private SesionPreguntasPKDto getPrimaryKey(PathSegment pathSegment) {
         /*
          * pathSemgent represents a URI path segment and any associated matrix parameters.
          * URI path part is supposed to be in form of 'somePath;idSesion=idSesionValue;idPregunta=idPreguntaValue'.
@@ -41,7 +41,7 @@ public class SesionPreguntasFacadeREST extends AbstractFacade<SesionPreguntas> {
          * it is ignored in the following code.
          * Matrix parameters are used as field names to build a primary key instance.
          */
-        GlobalSurveys.Entity.SesionPreguntasPK key = new GlobalSurveys.Entity.SesionPreguntasPK();
+        GlobalSurveys.Dto.SesionPreguntasPKDto key = new GlobalSurveys.Dto.SesionPreguntasPKDto();
         javax.ws.rs.core.MultivaluedMap<String, String> map = pathSegment.getMatrixParameters();
         java.util.List<String> idSesion = map.get("idSesion");
         if (idSesion != null && !idSesion.isEmpty()) {
@@ -54,50 +54,50 @@ public class SesionPreguntasFacadeREST extends AbstractFacade<SesionPreguntas> {
         return key;
     }
 
-    public SesionPreguntasFacadeREST() {
-        super(SesionPreguntas.class);
+    public SesionPreguntasDtoFacadeREST() {
+        super(SesionPreguntasDto.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(SesionPreguntas entity) {
+    public void create(SesionPreguntasDto entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") PathSegment id, SesionPreguntas entity) {
+    public void edit(@PathParam("id") PathSegment id, SesionPreguntasDto entity) {
         super.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") PathSegment id) {
-        GlobalSurveys.Entity.SesionPreguntasPK key = getPrimaryKey(id);
+        GlobalSurveys.Dto.SesionPreguntasPKDto key = getPrimaryKey(id);
         super.remove(super.find(key));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public SesionPreguntas find(@PathParam("id") PathSegment id) {
-        GlobalSurveys.Entity.SesionPreguntasPK key = getPrimaryKey(id);
+    public SesionPreguntasDto find(@PathParam("id") PathSegment id) {
+        GlobalSurveys.Dto.SesionPreguntasPKDto key = getPrimaryKey(id);
         return super.find(key);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<SesionPreguntas> findAll() {
+    public List<SesionPreguntasDto> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<SesionPreguntas> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<SesionPreguntasDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

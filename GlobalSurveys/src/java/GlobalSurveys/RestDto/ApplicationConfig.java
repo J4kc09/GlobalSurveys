@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package REST;
+package GlobalSurveys.RestDto;
 
 import java.util.Set;
 import javax.ws.rs.core.Application;
@@ -29,12 +29,12 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(REST.EncuestaFacadeREST.class);
-        resources.add(REST.PreguntaFacadeREST.class);
-        resources.add(REST.RespuestaFacadeREST.class);
-        resources.add(REST.SesionFacadeREST.class);
-        resources.add(REST.SesionPreguntasFacadeREST.class);
-        resources.add(REST.UsuarioFacadeREST.class);
+        resources.add(GlobalSurveys.RestDto.EncuestaDtoFacadeREST.class);
+        resources.add(GlobalSurveys.RestDto.PreguntaDtoFacadeREST.class);
+        resources.add(GlobalSurveys.RestDto.RespuestaDtoFacadeREST.class);
+        resources.add(GlobalSurveys.RestDto.SesionDtoFacadeREST.class);
+        resources.add(GlobalSurveys.RestDto.SesionPreguntasDtoFacadeREST.class);
+        resources.add(GlobalSurveys.RestDto.UsuarioDtoFacadeREST.class);
     }
     
 }

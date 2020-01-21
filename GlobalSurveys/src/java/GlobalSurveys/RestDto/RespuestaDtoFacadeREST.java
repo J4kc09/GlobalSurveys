@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package REST;
+package GlobalSurveys.RestDto;
 
-import GlobalSurveys.Entity.Sesion;
+import GlobalSurveys.Dto.RespuestaDto;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author sergio13v
  */
 @Stateless
-@Path("globalsurveys.entity.sesion")
-public class SesionFacadeREST extends AbstractFacade<Sesion> {
+@Path("globalsurveys.dto.respuestadto")
+public class RespuestaDtoFacadeREST extends AbstractFacade<RespuestaDto> {
 
     @PersistenceContext(unitName = "GlobalSurveysPU")
     private EntityManager em;
 
-    public SesionFacadeREST() {
-        super(Sesion.class);
+    public RespuestaDtoFacadeREST() {
+        super(RespuestaDto.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Sesion entity) {
+    public void create(RespuestaDto entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Long id, Sesion entity) {
+    public void edit(@PathParam("id") Long id, RespuestaDto entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class SesionFacadeREST extends AbstractFacade<Sesion> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Sesion find(@PathParam("id") Long id) {
+    public RespuestaDto find(@PathParam("id") Long id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Sesion> findAll() {
+    public List<RespuestaDto> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Sesion> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<RespuestaDto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

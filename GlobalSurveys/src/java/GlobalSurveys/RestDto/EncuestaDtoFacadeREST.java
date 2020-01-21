@@ -34,10 +34,25 @@ public class EncuestaDtoFacadeREST {
         
     }
     
-
+    /*@POST
+    @Consumes({MediaType.APPLICATION_JSON})
+    
+    public UsuarioDto find(Object id) {
+        Usuario = usuarioFacade.find(Object id);
+        UsuarioDto = new ;
+        if (lista != null && !lista.isEmpty()) {
+            for (Encuesta encuesta:lista) {
+                listaDto.add(encuesta.crearDTO());
+            }
+    }
+    
+    public void create(EncuestaDto entity) {
+        super.create(entity);
+    }*/
+    
     @GET
     @Path("encuestas")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_JSON})
     public List<EncuestaDto> findAllEncuestas() {
         List<Encuesta> lista = encuestaFacade.findAll();
         List<EncuestaDto> listaDto = new ArrayList();

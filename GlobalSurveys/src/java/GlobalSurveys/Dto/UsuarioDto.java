@@ -40,7 +40,7 @@ public class UsuarioDto implements Serializable {
 
     private boolean admin;
 
-    private List<SesionDto> sesionList;
+    //private List<SesionDto> sesionList;
 
     public UsuarioDto() {
     }
@@ -80,7 +80,7 @@ public class UsuarioDto implements Serializable {
         this.passwd = passwd;
     }
 
-    public boolean getAdmin() {
+    /*public boolean getAdmin() {
         return admin;
     }
 
@@ -95,7 +95,7 @@ public class UsuarioDto implements Serializable {
 
     public void setSesionList(List<SesionDto> sesionList) {
         this.sesionList = sesionList;
-    }
+    }*/
 
     @Override
     public int hashCode() {

@@ -5,6 +5,8 @@
  */
 package GlobalSurveys.Entity;
 
+import GlobalSurveys.Dto.EncuestaDto;
+import GlobalSurveys.Dto.UsuarioDto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -139,6 +141,14 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Entity.Usuario[ idUsuario=" + idUsuario + " ]";
+    }
+    
+    public UsuarioDto crearDTO () {
+        UsuarioDto dto = new UsuarioDto();
+        dto.setIdUsuario(idUsuario);
+        dto.setNomUsuario(nomUsuario);
+        dto.setPasswd(passwd);
+        return dto;
     }
     
 }

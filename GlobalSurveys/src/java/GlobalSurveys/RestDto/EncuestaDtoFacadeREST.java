@@ -6,14 +6,22 @@
 package GlobalSurveys.RestDto;
 
 import GlobalSurveys.Dto.EncuestaDto;
+import GlobalSurveys.Dto.LoginDto;
+import GlobalSurveys.Dto.RespuestaDto;
+import GlobalSurveys.Dto.UsuarioDto;
 import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Ejb.UsuarioFacade;
 import GlobalSurveys.Entity.Encuesta;
+import GlobalSurveys.Entity.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -26,6 +34,9 @@ import javax.ws.rs.core.MediaType;
 public class EncuestaDtoFacadeREST {
 
     @EJB
+    private UsuarioFacade usuarioFacade;
+
+    @EJB
     private EncuestaFacade encuestaFacade;
     
 
@@ -34,21 +45,22 @@ public class EncuestaDtoFacadeREST {
         
     }
     
-    /*@POST
-    @Consumes({MediaType.APPLICATION_JSON})
-    
-    public UsuarioDto find(Object id) {
-        Usuario = usuarioFacade.find(Object id);
-        UsuarioDto = new ;
-        if (lista != null && !lista.isEmpty()) {
-            for (Encuesta encuesta:lista) {
-                listaDto.add(encuesta.crearDTO());
-            }
+    @GET
+    @Path("login/{usuario}/{clave}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public LoginDto findUsuario(@PathParam("usuario") String usuario, @PathParam("clave") String clave) {
+        LoginDto login = new LoginDto();
+        Usuario user = this.usuarioFacade.buscarPorNombre(usuario);
+        if (user == null) {
+            login.setCorrecto(Boolean.FALSE);
+        } else if (user.getPasswd().equals(clave)) {
+            login.setCorrecto(Boolean.TRUE);
+            login.setListaEncuesta(findAllEncuestas());            
+        } else {
+            login.setCorrecto(Boolean.FALSE);
+        }
+        return login;                
     }
-    
-    public void create(EncuestaDto entity) {
-        super.create(entity);
-    }*/
     
     @GET
     @Path("encuestas")

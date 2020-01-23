@@ -5,12 +5,10 @@
  */
 package GlobalSurveys.Servlets;
 
-
-import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,17 +17,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Articuno
+/*
+ * @author sergio13v
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+@WebServlet(name = "ServletUsuariosBorrar", urlPatterns = {"/ServletUsuariosBorrar"})
+public class ServletUsuariosBorrar extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
-
-
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,11 +38,15 @@ public class ServletPreguntasListar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-        List<Pregunta> lista = this.preguntaFacade.findAll();
-        request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+
+        String str = request.getParameter("id");
+        Usuario cliente = this.usuarioFacade.find(new Long(str));
+
+        this.usuarioFacade.remove(cliente);
+
+        RequestDispatcher rd = request.getRequestDispatcher("Usuarios");
         rd.forward(request, response);
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

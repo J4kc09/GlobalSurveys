@@ -5,12 +5,23 @@
  */
 package GlobalSurveys.Servlets;
 
-
-import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Ejb.SesionFacade;
+import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Entity.Encuesta;
 import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Entity.Respuesta;
+import GlobalSurveys.Entity.Sesion;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,18 +29,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Articuno
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+@WebServlet(name = "ServletEncuestaHacer", urlPatterns = {"/ServletEncuestaHacer"})
+public class ServletEncuestaHacer extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
+    private SesionFacade sesionFacade;
 
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
+    @EJB
+    private RespuestaFacade respuestaFacade;
+
+    @EJB
+    private EncuestaFacade encuestaFacade;
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,12 +62,31 @@ public class ServletPreguntasListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
-        List<Pregunta> lista = this.preguntaFacade.findAll();
-        request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
-        rd.forward(request, response);
+          
+         HttpSession sesion = request.getSession();
+         String str = request.getParameter("id");
+         Encuesta encuesta = this.encuestaFacade.find(new Long(str)); 
+         request.setAttribute("idencuesta", encuesta);
+         Long idusuario =(Long) sesion.getAttribute("usuario");
+         Usuario usuario = usuarioFacade.find(idusuario);
+
+         
+          Sesion sesionuser = new Sesion();
+          sesionuser.setIdEncuesta(encuesta);
+          sesionuser.setIdUsuario(usuario);
+          
+ 
+          sesionuser.setFecha(new Date());
+
+          sesionFacade.create(sesionuser);
+          sesion.setAttribute("sesion", sesionuser);
+          sesion.setAttribute("idencuesta", encuesta.getIdEncuesta());
+
+                    
+                    
+         RequestDispatcher rd = request.getRequestDispatcher("HacerEncuesta.jsp");
+        rd.forward(request, response); 
+    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

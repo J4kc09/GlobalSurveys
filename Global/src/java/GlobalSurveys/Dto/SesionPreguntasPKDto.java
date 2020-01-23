@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GlobalSurveys.Entity;
+package GlobalSurveys.Dto;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -15,22 +15,17 @@ import javax.validation.constraints.NotNull;
  *
  * @author acarr
  */
-@Embeddable
-public class SesionPreguntasPK implements Serializable {
+public class SesionPreguntasPKDto implements Serializable {
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_SESION")
+    
     private long idSesion;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID_PREGUNTA")
+    
     private long idPregunta;
 
-    public SesionPreguntasPK() {
+    public SesionPreguntasPKDto() {
     }
 
-    public SesionPreguntasPK(long idSesion, long idPregunta) {
+    public SesionPreguntasPKDto(long idSesion, long idPregunta) {
         this.idSesion = idSesion;
         this.idPregunta = idPregunta;
     }
@@ -62,10 +57,10 @@ public class SesionPreguntasPK implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SesionPreguntasPK)) {
+        if (!(object instanceof SesionPreguntasPKDto)) {
             return false;
         }
-        SesionPreguntasPK other = (SesionPreguntasPK) object;
+        SesionPreguntasPKDto other = (SesionPreguntasPKDto) object;
         if (this.idSesion != other.idSesion) {
             return false;
         }

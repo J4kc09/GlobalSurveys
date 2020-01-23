@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GlobalSurveys.Entity;
+package GlobalSurveys.Dto;
 
-import GlobalSurveys.Dto.EncuestaDto;
-import GlobalSurveys.Dto.UsuarioDto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -29,48 +27,29 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author acarr
  */
-@Entity
-@Table(name = "USUARIO")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u")
-    , @NamedQuery(name = "Usuario.findByIdUsuario", query = "SELECT u FROM Usuario u WHERE u.idUsuario = :idUsuario")
-    , @NamedQuery(name = "Usuario.findByNomUsuario", query = "SELECT u FROM Usuario u WHERE u.nomUsuario = :nomUsuario")
-    , @NamedQuery(name = "Usuario.findByPasswd", query = "SELECT u FROM Usuario u WHERE u.passwd = :passwd")
-    , @NamedQuery(name = "Usuario.findByAdmin", query = "SELECT u FROM Usuario u WHERE u.admin = :admin")})
-public class Usuario implements Serializable {
+
+public class UsuarioDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ID_USUARIO")
-    private Long idUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "NOM_USUARIO")
-    private String nomUsuario;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "PASSWD")
-    private String passwd;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ADMIN")
-    private boolean admin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private List<Sesion> sesionList;
 
-    public Usuario() {
+    private Long idUsuario;
+
+    private String nomUsuario;
+
+    private String passwd;
+
+    private boolean admin;
+
+    //private List<SesionDto> sesionList;
+
+    public UsuarioDto() {
     }
 
-    public Usuario(Long idUsuario) {
+    public UsuarioDto(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Long idUsuario, String nomUsuario, String passwd, boolean admin) {
+    public UsuarioDto(Long idUsuario, String nomUsuario, String passwd, boolean admin) {
         this.idUsuario = idUsuario;
         this.nomUsuario = nomUsuario;
         this.passwd = passwd;
@@ -101,7 +80,7 @@ public class Usuario implements Serializable {
         this.passwd = passwd;
     }
 
-    public boolean getAdmin() {
+    /*public boolean getAdmin() {
         return admin;
     }
 
@@ -110,13 +89,13 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public List<Sesion> getSesionList() {
+    public List<SesionDto> getSesionList() {
         return sesionList;
     }
 
-    public void setSesionList(List<Sesion> sesionList) {
+    public void setSesionList(List<SesionDto> sesionList) {
         this.sesionList = sesionList;
-    }
+    }*/
 
     @Override
     public int hashCode() {
@@ -128,10 +107,10 @@ public class Usuario implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+        if (!(object instanceof UsuarioDto)) {
             return false;
         }
-        Usuario other = (Usuario) object;
+        UsuarioDto other = (UsuarioDto) object;
         if ((this.idUsuario == null && other.idUsuario != null) || (this.idUsuario != null && !this.idUsuario.equals(other.idUsuario))) {
             return false;
         }
@@ -141,14 +120,6 @@ public class Usuario implements Serializable {
     @Override
     public String toString() {
         return "Entity.Usuario[ idUsuario=" + idUsuario + " ]";
-    }
-    
-    public UsuarioDto crearDTO () {
-        UsuarioDto dto = new UsuarioDto();
-        dto.setIdUsuario(idUsuario);
-        dto.setNomUsuario(nomUsuario);
-        dto.setPasswd(passwd);
-        return dto;
     }
     
 }

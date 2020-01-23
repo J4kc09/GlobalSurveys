@@ -5,12 +5,12 @@
  */
 package GlobalSurveys.Servlets;
 
-
 import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Ejb.RespuestaFacade;
 import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Entity.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,15 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Articuno
+ * @author acarr
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+@WebServlet(name = "ServletRespuestaCrear", urlPatterns = {"/ServletRespuestaCrear"})
+public class ServletRespuestaCrear extends HttpServlet {
+
+    @EJB
+    private RespuestaFacade respuestaFacade;
 
     @EJB
     private PreguntaFacade preguntaFacade;
-
-
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,11 +43,25 @@ public class ServletPreguntasListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
-        List<Pregunta> lista = this.preguntaFacade.findAll();
-        request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+        
+        
+         Respuesta respuesta = new Respuesta(); 
+         String str = request.getParameter("idrespuesta");
+         respuesta.setIdRespuesta(new Long(str));
+         
+         str = request.getParameter("respuesta");
+         respuesta.setRespuesta(str);
+         
+         
+         str = request.getParameter("pregunta");
+         Pregunta pregunta = preguntaFacade.find(new Long(str));
+         respuesta.setIdPregunta(pregunta);
+         pregunta.getRespuestaList().add(respuesta);
+         
+          this.respuestaFacade.create(respuesta);
+          this.preguntaFacade.edit(pregunta);
+                 
+        RequestDispatcher rd = request.getRequestDispatcher("Preguntas");
         rd.forward(request, response);
     }
 

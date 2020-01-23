@@ -5,11 +5,16 @@
  */
 package GlobalSurveys.Servlets;
 
-
+import GlobalSurveys.Ejb.EncuestaFacade;
 import GlobalSurveys.Ejb.PreguntaFacade;
+import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Entity.Encuesta;
 import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -19,17 +24,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Articuno
+/*
+ * @author sergio13v
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+
+@WebServlet(name = "ServletPreguntasInsertarGuardar", urlPatterns = {"/ServletPreguntasInsertarGuardar"})
+public class ServletPreguntasInsertarGuardar extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
-
-
+    private EncuestaFacade encuestaFacade;
+        
+    @EJB
+    private PreguntaFacade preguntaFacade;    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,11 +48,32 @@ public class ServletPreguntasListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
-       
-        List<Pregunta> lista = this.preguntaFacade.findAll();
-        request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+        
+        //Cogemos el ID de la encuesta
+        String str = request.getParameter("encuesta");
+        Encuesta enc = this.encuestaFacade.find(new Long(str));
+        
+        //Creamos una lista de preguntas
+        List<Pregunta> listaPreg = new ArrayList();
+        
+        //Cogemos los IDs de las preguntas
+        String[] str1 = request.getParameterValues("idpreguntas");
+        
+        //Metemos cada pregunta en la lista
+        for (int i = 0; i < str1.length; i++) {
+            Pregunta preg = this.preguntaFacade.find(new Long(str1[i]));
+            listaPreg.add(preg);
+        }
+        
+        enc.setPreguntaList(listaPreg);
+
+        /*System.out.println(listaPreg);*/
+        
+        this.encuestaFacade.edit(enc);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
         rd.forward(request, response);
     }
 

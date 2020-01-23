@@ -5,9 +5,14 @@
  */
 package GlobalSurveys.Servlets;
 
-
-import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Ejb.RespuestaFacade;
+import GlobalSurveys.Ejb.SesionFacade;
+import GlobalSurveys.Ejb.SesionPreguntasFacade;
+import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Entity.Respuesta;
+import GlobalSurveys.Entity.Sesion;
+import GlobalSurveys.Entity.SesionPreguntas;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,15 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Articuno
+ * @author sergio13v
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+@WebServlet(name = "ServletRegistroVer", urlPatterns = {"/ServletRegistroVer"})
+public class ServletRegistroVer extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
-
-
+    private SesionFacade sesionFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,11 +45,14 @@ public class ServletPreguntasListar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
-        List<Pregunta> lista = this.preguntaFacade.findAll();
-        request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+        
+        String str = request.getParameter("id");
+        Sesion sesion = this.sesionFacade.find(new Long(str));
+        
+        List respuesta = sesion.getSesionPreguntasList();
+        request.setAttribute("sesion", respuesta);
+
+        RequestDispatcher rd = request.getRequestDispatcher("VerRegistro.jsp");
         rd.forward(request, response);
     }
 

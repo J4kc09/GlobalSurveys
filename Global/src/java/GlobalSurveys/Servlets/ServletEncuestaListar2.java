@@ -5,9 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-
-import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Ejb.EncuestaFacade;
+import GlobalSurveys.Entity.Encuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -21,15 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Articuno
+ * @author ilariadot
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+@WebServlet(name = "ServletEncuestaListar2", urlPatterns = {"/EncuestasUsuario"})
+public class ServletEncuestaListar2 extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
-
-
+    private EncuestaFacade encuestaFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +40,10 @@ public class ServletPreguntasListar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
-        List<Pregunta> lista = this.preguntaFacade.findAll();
+
+        List<Encuesta> lista = this.encuestaFacade.findAll();
         request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("PanelUsuario.jsp");
         rd.forward(request, response);
     }
 

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ilariadot
  */
-@WebServlet(name = "ServletEncuestaListar", urlPatterns = {"/ServletEncuestaListar"})
+@WebServlet(name = "ServletEncuestaListar", urlPatterns = {"/EncuestasAdmin"})
 public class ServletEncuestaListar extends HttpServlet {
 
     @EJB
@@ -43,7 +43,7 @@ public class ServletEncuestaListar extends HttpServlet {
 
         List<Encuesta> lista = this.encuestaFacade.findAll();
         request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarEncuesta.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("PanelAdmin.jsp");
         rd.forward(request, response);
     }
 

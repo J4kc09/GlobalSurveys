@@ -60,7 +60,7 @@ public class ServletEncuestaCrear extends HttpServlet {
 
        
         
-        RequestDispatcher rd = request.getRequestDispatcher("ServletEncuestaListar");
+        RequestDispatcher rd = request.getRequestDispatcher("EncuestasAdmin");
         rd.forward(request, response);
         
         

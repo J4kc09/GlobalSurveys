@@ -5,6 +5,7 @@
  */
 package GlobalSurveys.Entity;
 
+import GlobalSurveys.Dto.RespuestaDto;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Respuesta.findAll", query = "SELECT r FROM Respuesta r")
     , @NamedQuery(name = "Respuesta.findByIdRespuesta", query = "SELECT r FROM Respuesta r WHERE r.idRespuesta = :idRespuesta")
     , @NamedQuery(name = "Respuesta.findByRespuesta", query = "SELECT r FROM Respuesta r WHERE r.respuesta = :respuesta")})
+
 public class Respuesta implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -122,6 +124,13 @@ public class Respuesta implements Serializable {
     @Override
     public String toString() {
         return "Entity.Respuesta[ idRespuesta=" + idRespuesta + " ]";
+    }
+    
+    public RespuestaDto crearDTO () {
+        RespuestaDto dto = new RespuestaDto();
+        dto.setIdRespuesta(idRespuesta);
+        dto.setRespuesta(respuesta);
+        return dto;
     }
     
 }

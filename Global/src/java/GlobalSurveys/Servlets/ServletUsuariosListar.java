@@ -5,9 +5,8 @@
  */
 package GlobalSurveys.Servlets;
 
-
-import GlobalSurveys.Ejb.PreguntaFacade;
-import GlobalSurveys.Entity.Pregunta;
+import GlobalSurveys.Ejb.UsuarioFacade;
+import GlobalSurveys.Entity.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -19,17 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Articuno
+/*
+ * @author sergio13v
  */
-@WebServlet(name = "ServletListar", urlPatterns = {"/Preguntas"})
-public class ServletPreguntasListar extends HttpServlet {
+@WebServlet(name = "ServletUsuariosListar", urlPatterns = {"/Usuarios"})
+public class ServletUsuariosListar extends HttpServlet {
 
     @EJB
-    private PreguntaFacade preguntaFacade;
-
-
+    private UsuarioFacade usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,9 +40,9 @@ public class ServletPreguntasListar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
        
-        List<Pregunta> lista = this.preguntaFacade.findAll();
+        List<Usuario> lista = this.usuarioFacade.findAll();
         request.setAttribute("listado", lista);
-        RequestDispatcher rd = request.getRequestDispatcher("ListarPreguntas.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("ListarUsuarios.jsp");
         rd.forward(request, response);
     }
 

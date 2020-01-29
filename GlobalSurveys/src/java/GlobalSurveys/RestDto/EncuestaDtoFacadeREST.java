@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.servlet.RequestDispatcher;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -51,12 +52,11 @@ public class EncuestaDtoFacadeREST {
     public LoginDto findUsuario(@PathParam("usuario") String usuario, @PathParam("clave") String clave) {
         LoginDto login = new LoginDto();
         Usuario user = this.usuarioFacade.buscarPorNombre(usuario);
-        if (user == null) {
-            login.setCorrecto(Boolean.FALSE);
-        } else if (user.getPasswd().equals(clave)) {
+        if (user != null && user.getNomUsuario().equals(usuario) && user.getPasswd().equals(clave)) {
             login.setCorrecto(Boolean.TRUE);
-            login.setListaEncuesta(findAllEncuestas());            
-        } else {
+            login.setListaEncuesta(findAllEncuestas()); 
+        }
+        else {
             login.setCorrecto(Boolean.FALSE);
         }
         return login;                
